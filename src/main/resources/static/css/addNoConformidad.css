@@ -1,0 +1,36 @@
+
+
+#accionButtonsDiv{
+    margin-top: 3vw;
+}
+
+.accionButton{
+    width: 4vw;
+    height: 4vw;
+    border-radius: 100%;
+}
+
+.middleAcc{
+    margin: 0 2vw;
+}
+
+#addNcTitle{
+    margin-bottom: 2vw;
+    display: inline-block;
+}
+
+.addAccionButton{
+    margin-top: 2vw;
+    width: 10vw;
+}
+
+#addNoConformidadButton{
+    width: 14vw;
+    margin-top: 8vh;
+    margin-bottom: 4vh;
+}
+
+#expedienteAfectadoTitle{
+    font-size: 0.9vw;
+    font-weight: 500;
+}

@@ -1,0 +1,26 @@
+#addApTitle{
+    /* margin-bottom: 2vw; */
+    display: inline-block;
+}
+
+#titleDiv{
+    margin-bottom: 2vw;
+}
+
+.fileCol {
+    margin-bottom: 2vh;
+}
+
+/* #createRcButton{
+    width: 14vw;
+    margin-top: 8vh;
+    margin-bottom: 3vh;
+} */
+
+#floatButtonDiv{
+    position:fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 3vh;
+    /* margin-right: 2vh; */
+}

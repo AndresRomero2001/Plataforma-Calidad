@@ -1,0 +1,14 @@
+estoy poniendo en las variables los nombres q hay en el excel...
+
+---------
+
+- Acciones reparadoras y de contencion no tienen estado?
+- En analisis causas y extension no hay opcion "otros"
+
+al final todas las acciones son como la correctiva
+analisis de causas si deberia tener otros
+
+---------
+
+- Como se llama el documento a cargar en analisis extension
+- Por que en tramites audiencia la consultora tiene q ser un desplegable y no q lo metan a mano como en no conformidad?

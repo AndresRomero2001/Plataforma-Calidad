@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}" href="css/usuarios.css" type="text/css" />
+    <title>Usuarios</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+
+    <th:block th:if="${session.u.hasRole('ADMIN')}">
+        <input type="hidden" id="userId" th:value="${session.u.id}">
+    </th:block>
+
+    <div class="contentBody">
+        <div class="contentPanel uniquePanel">
+            
+            <div class="d-flex align-items-center justify-content-center" id="usersTitleDiv">
+                <h1 class="text-center" id="usersTitle">Usuarios</h1>
+                <button class="btn btn-primary" id="addUserButton" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                    <i class="bi bi-plus-lg"></i>
+                    Nuevo usuario
+                </button>
+            </div>
+            <div id="usersList">
+                <th:block th:each="user,iter: ${usersList}">
+                    <div class="row userDiv d-flex justify-content-center align-items-center" th:data-user-id="${user.id}">
+                        <div class="col col-md-4 offset-md-2">
+                            <h4 th:text="${user.firstName} + ' ' + ${user.lastName}" th:id="'fullName' + ${user.id}"></h4>
+                        </div>
+                        <div class="col ">
+                            <button class="btn btn-secondary userButton" data-bs-toggle="modal" data-bs-target="#modificarUserModal" onclick="updateSelectedUser(event); updateModalInfo(event)"><i class="bi bi-pencil-fill"></i></button>
+                            <th:block th:unless="${user.hasRole('ADMIN')}">
+                                <button class="btn btn-danger userButton" data-bs-toggle="modal" data-bs-target="#eliminarUserModal" onclick="updateSelectedUser(event)"><i class="bi bi-trash"></i></button>
+                            </th:block>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+            
+    
+            
+        </div>
+        
+    </div>
+
+    <!-- MODAL ELIMINAR -->
+    <div class="modal fade" id="eliminarUserModal" tabindex="-1" aria-labelledby="eliminarUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="eliminarUserModalDialog">
+            <div class="modal-content" id="eliminarUserModalContent">
+                <!-- <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarUserModalLabel">eliminarUser No Conformidad</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div> -->
+                <div class="modal-body" id="eliminarUserModalBody">
+                    <h3 id="deleteUserMsg">¿Seguro que deseas eliminar el usuario?</h3>
+                    <div class="row modalRow">
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" id="closeModaleliminarUser" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" id="eliminarUserButton" class="btn btn-danger deleteModalButton" onclick="deleteUser()">Eliminar</button>
+                        </div>
+                        <div class="col"></div>
+                        
+                    </div>
+                    
+                    <!-- <div class="modal-footer">
+                        
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AÑADIR -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="createUserModalDialog">
+            <div class="modal-content" id="createUserModalContent">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserModalLabel">Añadir usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body" id="createUserModalBody">
+                    <form role="form" id="createUserForm" onsubmit="return false;">
+                        <div class="row modalRow">
+                            <div class="col">
+                                <label for="newUsername" class="inputLabel">Nombre de usuario</label>
+                                <input class="form-control" id="newUsername"></input>
+                            </div>
+                            <div class="col">
+                                <label for="newPassword" class="inputLabel">Contraseña</label>
+                                <input type="password" class="form-control" id="newPassword"></input>
+                            </div>
+                        </div>
+    
+                        <div class="row modalRow">
+                            <div class="col">
+                                <label for="newFirstName" class="inputLabel">Nombre</label>
+                                <input class="form-control" id="newFirstName"></input>
+                            </div>
+                            <div class="col">
+                                <label for="newLastName" class="inputLabel">Apellido</label>
+                                <input class="form-control" id="newLastName" ></input>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeModalcreateUser" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" id="createUserButton" class="btn btn-primary" onclick="createUser()">Añadir</button>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MODIFICAR -->
+    <div class="modal fade" id="modificarUserModal" tabindex="-1" aria-labelledby="modificarUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="modificarUserModalDialog">
+            <div class="modal-content" id="modificarUserModalContent">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modificarUserModalLabel">Modificar usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body" id="modificarUserModalBody">
+                    <form role="form" id="modifyUserForm" onsubmit="return false;">
+                        <div class="row modalRow">
+                            <div class="col">
+                                <label for="username" class="inputLabel">Nombre de usuario</label>
+                                <input class="form-control" id="username"></input>
+                            </div>
+                            <div class="col">
+                                <label for="password" class="inputLabel">Contraseña</label>
+                                <input type="password" class="form-control" id="password"></input>
+                            </div>
+                        </div>
+    
+                        <div class="row modalRow">
+                            <div class="col">
+                                <label for="firstName" class="inputLabel">Nombre</label>
+                                <input class="form-control" id="firstName"></input>
+                            </div>
+                            <div class="col">
+                                <label for="lastName" class="inputLabel">Apellido</label>
+                                <input class="form-control" id="lastName" ></input>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeModalmodificarUser" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" id="modificarUserButton" class="btn btn-primary" onclick="modifyUser()">Guardar</button>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/usuarios.js}" src="js/usuarios.js"></script>
+</body>
+
+</html>

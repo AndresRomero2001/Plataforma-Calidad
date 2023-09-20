@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/manageNoConformidad.css}" href="css/manageNoConformidad.css" type="text/css" />
+    <title>Modificar NC</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+    
+    <input type="hidden" th:value="${nc.id}" id="idNC"></input>
+
+    <div class="contentBody">
+
+        <div class="contentPanel firstPanel">
+            <h1 id="manageNCTitle">No Conformidad</h1><span id="ncId" th:text="'Nº ' + ${nc.id}">asd</span>
+
+            <div class="row formRow">
+                <div class="col">
+                    <label for="origenSelect" class="inputLabel">Origen*</label>
+                    <select class="form-select" id="origenSelect" onchange="manageSelect(event); checkUpdateNC(event)" required>
+                        <!-- <option value="">Seleccionar...</option> -->
+                        <option th:selected="${nc.origen == 'Auditoría interna'}" th:value="'Auditoría interna'">Auditoría interna</option>
+                        <option th:selected="${nc.origen == 'ENAC'}" th:value="'ENAC'">ENAC</option>
+                        <option th:selected="${nc.origen == 'Reclamaciones'}" th:value="'Reclamaciones'">Reclamaciones</option>
+                        <option th:selected="${nc.origen == 'Apelaciones'}" th:value="'Apelaciones'">Apelaciones</option>
+                        <option th:selected="${nc.origen == 'Trámites de Audiencia'}" th:value="'Trámites de Audiencia'">Trámites de Audiencia</option>
+                        <option th:selected="${nc.origen == 'Revisión por dirección'}" th:value="'Revisión por dirección'">Revisión por dirección</option>
+                        <option th:selected="${nc.origen == 'Sistema de gestión'}" th:value="'Sistema de gestión'">Sistema de gestión</option>
+                        <option th:selected="${nc.origen != 'Auditoría interna' && nc.origen != 'ENAC' && nc.origen != 'Reclamaciones' && nc.origen != 'Apelaciones' && nc.origen != 'Trámites de Audiencia' && nc.origen != 'Revisión por dirección' && nc.origen != 'Sistema de gestión'}" th:value="otro">Otro</option>
+                        <input type="hidden" id="origenText" th:value="${nc.origen}"></input> <!-- para poder recoger el valor de nc.origen desde JS -->
+                    </select>
+    
+                    <div class="row otroDiv" id="origenSelectOtroDiv">
+                        <div class="col col-md-10">
+                            <label for="origenSelectOtro" class="inputLabel">Otro origen</label>
+                            <input class="form-control" id="origenSelectOtro" onchange="updateNC()"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="fecha" class="inputLabel">Fecha*</label>
+                    <input type="date" class="form-control" id="fecha" th:value="${nc.fecha}" onchange="updateNC()" required>
+                </div>
+            </div>
+    
+            <div class="row formRow">
+                <div class="col">
+                    <label for="alcanceSelect" class="inputLabel">Alcance*</label>
+                    <select class="form-select" id="alcanceSelect" onchange="manageSelect(event); checkUpdateNC(event)" required>
+                        <option th:selected="${nc.alcance == 'proyectosIDi'}" th:value="proyectosIDi">Proyectos IDi</option>
+                        <option th:selected="${nc.alcance == 'muestrarios'}" th:value="muestrarios">Muestrarios</option>
+                        <option th:selected="${nc.alcance == 'perteVec'}" th:value="perteVec">PERTE VEC</option>
+                        <option th:selected="${nc.alcance == 'perteAgro'}" th:value="perteAgro">PERTE AGRO</option>
+                        <option th:selected="${nc.alcance != 'proyectosIDi' && nc.alcance != 'muestrarios' && nc.alcance != 'perteVec' && nc.alcance != 'perteAgro'}" th:value="otro">Otro</option>
+                        <input type="hidden" id="alcanceText" th:value="${nc.alcance}"></input> <!-- para poder recoger el valor de nc.alcance desde JS -->
+                    </select>
+                    <div class="row otroDiv" id="alcanceSelectOtroDiv">
+                        <div class="col col-md-10">
+                            <label for="alcanceSelectOtro" class="inputLabel">Otro alcance</label>
+                            <input class="form-control" id="alcanceSelectOtro" onchange="updateNC()"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="detectadaPorSelect" class="inputLabel">Detectada por*</label>
+                    <select class="form-select" id="detectadaPorSelect" onchange="manageSelect(event); checkUpdateNC(event)" required>
+                        <option th:selected="${nc.detectadaPor == ''}" value="">Seleccionar...</option>
+                        <option th:selected="${nc.detectadaPor == 'auditorENAC'}" th:value="auditorENAC">Auditor ENAC</option>
+                        <option th:selected="${nc.detectadaPor == 'auditorInterno'}" th:value="auditorInterno">Auditor interno</option>
+                        <option th:selected="${nc.detectadaPor == 'direccionGeneral'}" th:value="direccionGeneral">Dirección General</option>
+                        <option th:selected="${nc.detectadaPor == 'direccionTecnica'}" th:value="direccionTecnica">Dirección Técnica</option>
+                        <option th:selected="${nc.detectadaPor == 'departamentoCalidad'}" th:value="departamentoCalidad">Departamento de calidad</option>
+                        <option th:selected="${nc.detectadaPor == 'departamentoDesarrollo'}" th:value="departamentoDesarrollo">Departamento de desarrollo</option>
+                        <option th:selected="${nc.detectadaPor != 'auditorENAC' && nc.detectadaPor != 'auditorInterno' && nc.detectadaPor != 'direccionGeneral' && nc.detectadaPor != 'direccionTecnica' && nc.detectadaPor != 'departamentoCalidad' && nc.detectadaPor != 'departamentoDesarrollo'}" th:value="otro">Otro</option>
+                        <input type="hidden" id="detectadaPorText" th:value="${nc.detectadaPor}"></input> <!-- para poder recoger el valor de nc.detectadaPor desde JS -->
+                    </select>
+                    <div class="row otroDiv" id="detectadaPorSelectOtroDiv">
+                        <div class="col col-md-10">
+                            <label for="detectadaPorSelectOtro" class="inputLabel">Detectada por otro</label>
+                            <input class="form-control" id="detectadaPorSelectOtro" onchange="updateNC()"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row formRow">
+                <div class="col">
+                    <label for="asunto" class="inputLabel">Asunto*</label>
+                    <input class="form-control" id="asunto" th:value="${nc.asunto}" onchange="updateNC()" required></input>
+                </div>
+                <div class="col col-md-6">
+                    <label for="descripcionDesviacion" class="inputLabel">Descripción de la desviación</label>
+                    <textarea class="form-control" id="descripcionDesviacion" th:text="${nc.descripcionDesviacion}"  onchange="updateNC()"></textarea>
+                </div>
+                
+            </div>
+    
+            <div class="row mt-5">
+                <div class="col col-md-1"><hr></div>
+                <div class="col col-md-2"><span id="expedienteAfectadoTitle">Expediente afectado</span></div>
+                <div class="col"><hr></div>
+            </div>
+            
+            <div class="row formRow mt-2">
+                <div class="col">
+                    <label for="numeroExpediente" class="inputLabel">Número de expediente</label>
+                    <input class="form-control" id="numeroExpediente" th:value="${nc.numeroExpediente}" onchange="updateNC()"></input>
+                </div>
+                <div class="col">
+                    <label for="acronimoExpediente" class="inputLabel">Acrónimo del expediente</label>
+                    <input class="form-control" id="acronimoExpediente" th:value="${nc.acronimoExpediente}" onchange="updateNC()"></input>
+                </div>
+            </div>
+
+            <div class="row formRow">
+                <div class="col">
+                    <label for="aplicaExpediente" class="inputLabel">Aplica a expediente afectado</label>
+                    <select class="form-select" id="aplicaExpedienteSelect"  onchange="updateNC()">
+                        <option th:selected="${nc.aplicaExpediente == true}" th:value="true">Aplica</option>
+                        <option th:selected="${nc.aplicaExpediente != true}" th:value="false">No aplica</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="consultora" class="inputLabel">Consultora</label>
+                    <input class="form-control" id="consultora" th:value="${nc.consultora}" onchange="updateNC()"></input>
+                </div>
+            </div>
+
+            <hr class="formRow mb-5 mt-4">
+    
+            <div class="row formRow">
+                <div class="col col-md-6">
+                    <label for="apartadoNormaSelect" class="inputLabel">Documento normativo</label>
+                    <select class="form-select" id="apartadoNormaSelect" onchange="manageSelect(event); checkUpdateNC(event)" required>
+                        <option th:selected="${nc.apartadoNorma == '' || nc.apartadoNorma == null}" value="">Seleccionar...</option>
+                        <option th:selected="${nc.apartadoNorma == 'iso17065'}" th:value="iso17065">ISO 17065</option>
+                        <option th:selected="${nc.apartadoNorma == 'RDE'}" th:value="RDE">RDE</option>
+                        <option th:selected="${nc.apartadoNorma == 'manualEntidadesCertificacion'}" th:value="manualEntidadesCertificacion">Manual Entidades de Certificación</option>
+                        <option th:selected="${nc.apartadoNorma == 'ordenPerteVec'}" th:value="ordenPerteVec">Orden PERTE VEC</option>
+                        <option th:selected="${nc.apartadoNorma == 'ordenPerteAgro'}" th:value="ordenPerteAgro">Orden PERTE AGRO</option>
+                        <option th:selected="${nc.apartadoNorma != 'iso17065' && nc.apartadoNorma != 'RDE' && nc.apartadoNorma != 'manualEntidadesCertificacion' && nc.apartadoNorma != 'ordenPerteVec' && nc.apartadoNorma != 'ordenPerteAgro' && nc.apartadoNorma != null && nc.apartadoNorma != ''}" th:value="otro">Otro</option>
+                        <input type="hidden" id="apartadoNormaText" th:value="${nc.apartadoNorma}"></input> <!-- para poder recoger el valor de nc.apartadoNorma desde JS -->
+                    </select>                    
+                    <div class="row otroDiv" id="apartadoNormaSelectOtroDiv">
+                        <div class="col col-md-10">
+                            <label for="apartadoNormaSelectOtro" class="inputLabel">Otro documento normativo</label>
+                            <input class="form-control" id="apartadoNormaSelectOtro" onchange="updateNC()"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row formRow">
+                <div class="col col-md-6">
+                    <label for="analisisCausasSelect" class="inputLabel">Causas relacionadas con...</label>
+                    <select name="causa" id="analisisCausasSelect" multiple>
+                        <option th:selected="${nc.causas.contains('procedimientos')}" th:value="procedimientos">Procedimientos</option>
+                        <option th:selected="${nc.causas.contains('registro')}" th:value="registro">Registro</option>
+                        <option th:selected="${nc.causas.contains('revision')}" th:value="revision">Revisión</option>
+                        <option th:selected="${nc.causas.contains('experto4d')}" th:value="experto4d">Experto 4D</option>
+                        <option th:selected="${nc.causas.contains('expertoTecnico')}" th:value="expertoTecnico">Experto técnico</option>
+                        <option th:selected="${nc.causas.contains('expertoContable')}" th:value="expertoContable">Experto Contable</option>
+                        <option th:selected="${nc.causas.contains('gestor')}" th:value="gestor">Gestor</option>
+                        <option th:selected="${nc.causas.contains('consultora')}" th:value="consultora">Consultora</option>
+                        <option th:selected="${otraCausa}" th:value="otro">Otro</option>
+                        <input type="hidden" id="analisisCausasText" th:value="${otraCausaValue}"></input>
+
+                    </select>
+                    <div class="row otroDiv" id="analisisCausasSelectOtroDiv">
+                        <div class="col col-md-10">
+                            <label for="analisisCausasSelectOtro" class="inputLabel">Otras causas</label>
+                            <input class="form-control" id="analisisCausasSelectOtro" onchange="updateNC()"></input>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row formRow">
+                <div class="col">
+                    <label for="explicacionCausas" class="inputLabel">Explicación de las causas</label>
+                    <textarea class="form-control customTextarea" id="explicacionCausas" th:text="${nc.explicacionCausas}" onchange="updateNC()"></textarea>
+                </div>
+            </div>
+
+            <div class="row formRow">
+                <div class="col col-md-6">
+                    <label for="analisisExtensionSelect" class="inputLabel">Análisis de extensión</label>
+                    <select class="form-select" id="analisisExtensionSelect" th:field="*{nc.analisisExtension}" onchange="updateNC()"> <!-- no hay opcion "otros" asi q no hace falta el checkUpdate -->
+                        <option value="false">No hay expedientes afectados</option>
+                        <option value="true">Hay expedientes afectados</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="row formRow">
+                <div class="col">
+                    <label for="explicacionExtension" class="inputLabel">Explicación del análisis extensión</label>
+                    <textarea class="form-control customTextarea" id="explicacionExtension" th:text="${nc.explicacionExtension}" onchange="updateNC()"></textarea>
+                </div>
+            </div>
+    
+            
+            <div class="row formRow" id="documentoExtensionRow">
+                <th:block th:if="${nc.documentoExtension != null}">
+                    <input type="hidden" th:value="${nc.documentoExtension.id}" id="documentoExtensionId">
+                    <div class="col" id="downloadDocumentoExtensionCol">
+                        <div class="row">
+                            <!-- <h5>Documento de extensión</h5> -->
+                            <label for="documentoExtensionCustom" class="inputLabel">Documento del análisis de extensión</label>
+                        </div>
+                        <div class="row">
+                            <div class="col ">
+                                <p id="documentoExtensionCustom" th:text="${nc.documentoExtension.name}"></p>
+                                <!-- <input type="text" class="form-control" id="documentoExtension" th:value="${nc.documentoExtension.name}" disabled> -->
+                                <div class="documentoExtensionButtons">
+                                    <a class="iconLinkButton" th:href="@{/media/documentosExtension/{id}{extension}?downloadName={name}(id=${nc.documentoExtension.id},extension=${nc.documentoExtension.extension}, name=${nc.documentoExtension.name})}">
+                                        <button type="button" class="btn btn-primary downloadButton">
+                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                            Descargar
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-danger" id="deleteDocumentoExtensionButton" th:value="${nc.documentoExtension.id}" data-bs-toggle="modal" data-bs-target="#eliminarDocumentoExtensionModal">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </th:block>
+                <div class="col col-md-6" th:unless="${nc.documentoExtension != null}" id="uploadDocumentoExtensionCol">
+                    <label for="documentoExtension" class="inputLabel">Documento del análisis de extensión</label>
+                    <input type="file" class="form-control" id="documentoExtension" onchange="uploadDocumentoExtension()">
+                    <input type="hidden" value="-1" id="documentoExtensionId">
+                </div>
+            </div>
+        </div>
+
+        <div class="contentPanel lastPanel">
+            <h1 id="accionesTitle">Acciones</h1>
+
+            <div class="accordion-item" id="fakeAccordionItem">
+                <div class="row">
+                    <button class="customAccordionButton headerTitles" id="fakeAccordionButton" type="button">
+                        <div class="row insideButtonRow d-flex justify-content-center align-items-center">
+                            <div class="col col-md-2">
+                                <h6>Identificador</h6>
+                            </div>
+                            
+                            <div class="col col-md-2">
+                                <h6>Tipo</h6>
+                            </div>
+                            
+                            <div class="col col-md-3">
+                                <h6>Responsable</h6>
+                            </div>
+                            
+                            <div class="col col-md-2">
+                                <h6>Estado</h6>
+                            </div>
+
+                            <div class="col col-md-3">
+                                <h6>Plazo implementación</h6>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- <div id="noAccionesMsg" th:if="${#lists.isEmpty(nc.acciones)}">
+                <h3>No hay acciones asignadas</h3>
+            </div> -->
+
+            <div class="accordion" id="accionesAccordion">
+                <th:block th:each="acc,iter: ${nc.acciones}">
+                    <div class="accordion-item" th:id="${acc.id}">
+                        
+                        <div class="row accordion-header" >
+                            <button class="accordion-button collapsed customAccordionButton" type="button" data-bs-toggle="collapse" th:data-bs-target="'#accion'+${acc.id}" aria-expanded="false" th:aria-controls="'accion'+${acc.id}">
+                                <div class="row insideButtonRow">
+                                    <div class="col col-md-2">
+                                        <p class="accordionHeaderText" th:text="${acc.identificador}"></p>
+                                    </div>
+                                    
+                                    <div class="col col-md-2">
+                                        <p class="accordionHeaderText" th:text="${acc.tipo}"></p>
+                                    </div>
+                                    
+                                    <div class="col col-md-3">
+                                        <p th:if="${acc.responsable == 'direccionGeneral'}" class="accordionHeaderText">Dirección general</p>
+                                        <p th:if="${acc.responsable == 'directorTecnico'}" class="accordionHeaderText">Director técnico</p>
+                                        <p th:if="${acc.responsable == 'directorCalidad'}" class="accordionHeaderText">Director de calidad</p>
+                                        <p th:if="${acc.responsable != 'direccionGeneral' && acc.responsable != 'directorTecnico' && acc.responsable != 'directorCalidad'}" class="accordionHeaderText" th:text="${acc.responsable}">Otro</p>
+                                    </div>
+                                    
+                                    <div class="col col-md-2">
+                                        <p th:if="${acc.estado == 'pendienteVerificacion'}" class="accordionHeaderText">Pendiente</p>
+                                        <p th:unless="${acc.estado == 'pendienteVerificacion'}" class="accordionHeaderText" th:text="${acc.estado}">Estado</p>
+                                    </div>
+
+                                    <div class="col col-md-3">
+                                        <p class="accordionHeaderText" th:text="${acc.plazoImplementacion}" id="showPlazoImplementacion"></p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div th:id="'accion'+${acc.id}" class="accordion-collapse collapse">
+                            <div class="row accordion-body">
+                                <div class="accionDiv">
+                                    <div class="row formRow">
+                                        <div class="col col-md-6">
+                                            <label for="identificador" class="inputLabel">Identificador*</label>
+                                            <input type="text" class="form-control" id="identificador" onchange="updateAccion(event)" maxlength="12" th:value="${acc.identificador}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row formRow">
+                                        <div class="col">
+                                            <label for="tipoSelect" class="inputLabel">Tipo de acción*</label>
+                                            <select class="form-select" id="tipoSelect" onchange="checkUpdateAccion(event)">
+                                                <option th:selected="${acc.tipo.toString().equals('CORRECTIVA')}" value="correctiva">Correctiva</option>
+                                                <option th:selected="${acc.tipo.toString().equals('REPARADORA')}" value="reparadora">Reparadora</option>
+                                                <option th:selected="${acc.tipo.toString().equals('CONTENCION')}" value="contencion">Contención</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <label for="responsableSelect" class="inputLabel">Responsable*</label>
+                                            <select class="form-select" id="responsableSelect" onchange="manageAccionSelect(event); checkUpdateAccion(event)">
+                                                <option th:selected="${acc.responsable == 'direccionGeneral'}" value="direccionGeneral">Dirección general</option>
+                                                <option th:selected="${acc.responsable == 'directorTecnico'}" value="directorTecnico">Director técnico</option>
+                                                <option th:selected="${acc.responsable == 'directorCalidad'}" value="directorCalidad">Director de calidad</option>
+                                                <option th:selected="${acc.responsable != 'direccionGeneral' && acc.responsable != 'directorTecnico' && acc.responsable != 'directorCalidad'}" value="otro">Otro</option>
+                                                <input type="hidden" id="responsableText" th:value="${acc.responsable}"></input>
+                                            </select>
+                                            <div class="row otroDiv" id="responsableSelectOtroDiv">
+                                                <div class="col">
+                                                    <label for="responsableSelectOtro" class="inputLabel">Otro responsable</label>
+                                                    <input class="form-control" id="responsableSelectOtro" onchange="updateAccion(event)"></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row formRow">
+                                        <div class="col">
+                                            <label for="fechaInicial" class="inputLabel">Fecha inicial*</label>
+                                            <input type="date" class="form-control" id="fechaInicial" th:value="${acc.fechaInicial}" onchange="updateAccion(event)">
+                                        </div>
+                                        <div class="col">
+                                            <label for="plazoImplementacion" class="inputLabel">Plazo de implementación*</label>
+                                            <input type="date" class="form-control" id="plazoImplementacion" th:value="${acc.plazoImplementacion}" onchange="updateAccion(event)"></input>
+                                        </div>
+                                    </div>
+
+                                    <div class="row formRow">
+                                        <div class="col col-md-6"></div>
+                                        <div class="col ">
+                                            <label for="ultimoSeguimiento" class="inputLabel">Último seguimiento</label>
+                                            <input type="date" class="form-control" id="ultimoSeguimiento" th:value="${acc.ultimoSeguimiento}" onchange="updateAccion(event)">
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row formRow">
+                                        <div class="col col-md-6">
+                                            <label for="explicacionAccion" class="inputLabel">Explicación de la acción*</label>
+                                            <textarea class="form-control" id="explicacionAccion" th:text="${acc.explicacion}" onchange="updateAccion(event)"></textarea>
+                                        </div>
+                                        <div class="col">
+                                            <label for="seguimientoAccion" class="inputLabel">Seguimiento de la acción</label>
+                                            <textarea class="form-control" id="seguimientoAccion" th:text="${acc.seguimiento}" onchange="updateAccion(event)"></textarea>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row formRow evidenciaDiv" th:each="ev,iter: ${acc.evidencias}" th:id="${ev.id}">
+                                        <div class="col">
+                                            <label for="descripcionEvidencia" class="inputLabel">Descripción de la evidencia</label>
+                                            <input type="text" class="form-control" id="descripcionEvidencia" th:value="${ev.descripcion}" onchange="updateDescripcionEvidencia(event)">
+                                        </div>
+                                        <div class="col ">
+                                            <label for="evidencia" class="inputLabel">Archivo de la evidencia</label>
+                                            <input type="text" class="form-control evidenciaArchivo" id="evidencia" th:value="${ev.archivo.name}" disabled>
+                                            <!-- <p class="inlineBlockP" th:text="${nc.documentoExtension.name}"></p> -->
+                                            <a class="iconLinkButton " th:href="@{/media/evidencias/{id}{extension}?downloadName={name}(id=${ev.archivo.id},extension=${ev.archivo.extension}, name=${ev.archivo.name})}">
+                                                <button type="button" class="btn btn-primary downloadEvidenciaButton">
+                                                    <i class="bi bi-file-earmark-arrow-down"></i>
+                                                </button>
+                                            </a>
+                                            <input type="hidden" id="archivoId" th:value="${ev.archivo.id}">
+                                            <button type="button" class="btn btn-danger" id="deleteEvidenciaButton" data-bs-toggle="modal" data-bs-target="#eliminarEvidenciaModal"  onclick="updateEvidenciaToDelete(event)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row formRow">
+                                        <div class="col">
+                                            <button type="button" class="btn btn-primary" id="addEvidenciaButton" onclick="addEvidenciaHTML(event)">Nueva evidencia</button>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row formRow">
+                                        <div class="col col-md-6">
+                                            <label for="estadoSelect" class="inputLabel">Estado</label>
+                                            <select class="form-select" id="estadoSelect" onchange="manageSelectCerrada(event); updateAccion(event)">
+                                                <option th:selected="${acc.estado == null || acc.estado == ''}" value="">Seleccionar...</option> 
+                                                <option th:selected="${acc.estado == 'Abierta'}" value="Abierta">Abierta</option>
+                                                <option th:selected="${acc.estado == 'Cerrada'}" value="Cerrada">Cerrada</option>
+                                                <option th:selected="${acc.estado == 'Pendiente'}" value="Pendiente">Pendiente</option>
+                                            </select>
+                                            
+                                        </div>
+                                        <!-- md-5: para q este al mismo nivel q los md-10 q estan en 1 capa mas profunda del dom -> 10/2 = 5 -->
+                                        <div class="col otroDiv col-md-5" id="estadoSelectCerradaDiv">
+                                            <label for="fechaCierre" class="inputLabel">Fecha cierre</label>
+                                            <input type="date" class="form-control" id="fechaCierre" onchange="updateAccion(event)">
+                                            <input type="hidden" id="fechaCierreText" th:value="${acc.fechaCierre}"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center formRow">
+                                        <button type="button" class="btn btn-danger deleteAccionButton" id="deleteAccionButton" data-bs-toggle="modal" data-bs-target="#eliminarModal" onclick="updateAccionToDelete(event)">
+                                            Eliminar acción
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+                
+            </div>
+
+            <div class="row justify-content-center formRow" id="addAccionButtonDiv">
+                <button class="btn btn-primary accionButton" id="addAccionButton" onclick="addAccionForm()">Nueva Acción</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL ELIMINAR ACCION-->
+    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered customModalDialog" id="eliminarModalDialog">
+          <div class="modal-content" id="eliminarModalContent">
+                <div class="modal-body" id="eliminarModalBody">
+                    <div class="d-flex align-items-center customModalContent">
+                        <div class="row align-items-center">
+                            <div class="col col-md-4 offset-1 d-flex align-items-center">
+                                <i class="bi bi-exclamation-circle alertIcon"></i>
+                            </div>
+                            <div class="col  col-md-6 d-flex align-items-center">
+                                <p class="confirmationMsg">¿Seguro que deseas eliminar la acción?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger deleteModalButton" onclick="deleteAccion()">Eliminar</button>
+                        </div>
+                        <div class="col"> </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR DOCUMENTO EXTENSION -->
+    <div class="modal fade" id="eliminarDocumentoExtensionModal" tabindex="-1" aria-labelledby="eliminarDocumentoExtensionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="eliminarDocumentoExtensionModalDialog">
+          <div class="modal-content" id="eliminarDocumentoExtensionModalContent">
+                <div class="modal-body" id="eliminarDocumentoExtensionModalBody">
+                    
+                    <div class="d-flex align-items-center customModalContent">
+                        <div class="row align-items-center">
+                            <div class="col col-md-4 offset-1 d-flex align-items-center">
+                                <i class="bi bi-exclamation-circle alertIcon" ></i>
+                            </div>
+                            <div class="col  col-md-6 d-flex align-items-center">
+                                <p class="confirmationMsg">¿Seguro que deseas eliminar el documento del análisis extensión?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger deleteModalButton" onclick="deleteDocumentoExtension()">Eliminar</button>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR EVIDENCIA -->
+    <div class="modal fade" id="eliminarEvidenciaModal" tabindex="-1" aria-labelledby="eliminarEvidenciaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="eliminarEvidenciaModalDialog">
+          <div class="modal-content" id="eliminarEvidenciaModalContent">
+                <div class="modal-body" id="eliminarEvidenciaModalBody">
+                    
+                    <div class="d-flex align-items-center customModalContent">
+                        <div class="row align-items-center">
+                            <div class="col col-md-4 offset-1 d-flex align-items-center">
+                                <i class="bi bi-exclamation-circle alertIcon" ></i>
+                            </div>
+                            <div class="col  col-md-6 d-flex align-items-center">
+                                <p class="confirmationMsg">¿Seguro que deseas eliminar la evidencia?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger deleteModalButton" onclick="deleteEvidencia()">Eliminar</button>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Toast modificacion -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="modifiedToast" class="toast hide"  data-bs-delay="4000" role="alert" aria-live="assertive" aria-atomic="true">
+            <!-- <div class="row toast-header">
+            </div> -->
+            <div class="row toast-body">
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+                <div class="col col-md-3 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-check-circle customCheck"></i>
+                </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <p class="me-auto toastText"> Cambios realizados correctamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast añadido -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="accionAddedToast" class="toast hide"  data-bs-delay="4000" role="alert" aria-live="assertive" aria-atomic="true">
+            <!-- <div class="row toast-header">
+            </div> -->
+            <div class="row toast-body">
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+                <div class="col col-md-3 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-check-circle customCheck"></i>
+                </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <p class="me-auto toastText">Acción añadida correctamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/manageNoConformidad.js}" src="js/manageNoConformidad.js"></script>
+</body>
+
+</html>

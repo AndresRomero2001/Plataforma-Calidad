@@ -1,0 +1,116 @@
+
+.indexBody{
+    margin-top: 3em;
+    margin-bottom: 2em;
+}
+
+.rightSquare{
+    margin-left: 2em;
+}
+
+.homePanel{
+    background-color: white;
+    border-radius: 0.3vw;
+    height: 22rem;
+    padding: 1.5vw;
+    margin-bottom: 2vw;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.statusTitle{
+    font-size: 1.3rem;
+}
+
+.statusNumber{
+    margin-top: 0.8em;
+    
+}
+
+.statusNumberDiv h5{
+    margin: 0;
+}
+
+.statusNumberDiv{
+    /* background-color: var(--bs-gray-300); */
+    color: white;
+    border-radius: 100%;
+    width: 3em;
+    height: 3em;
+    margin: auto;
+    margin-top: 0.5em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusNumberDiv2 h5{
+    margin: 0;
+}
+
+.statusNumberDiv2{
+    background-color: var(--bs-gray-300);
+    border-radius: 100%;
+    width: 3em;
+    height: 3em;
+    margin-left: 3.5em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusRow{
+    height: 100%;
+}
+
+.fullHeight{
+    height: 95%;
+}
+
+.abiertasColumn{
+    /* padding-left: 3em; */
+    /* background-color: var(--bs-light);
+    margin-top: 1em;
+    border-radius: 0.3em; */
+}
+
+.cerradasColumn{
+    /* padding-left: 3em; */
+}
+
+.statusBox{
+    height: 100%;
+    cursor: pointer;
+    border-radius: 0.3em;
+    padding: 1em;
+}
+
+.statusHref{
+    width: 100%;
+    text-decoration: none;
+    color: var(--bs-body-color);
+    background-color: transparent;
+}
+
+.statusHref:hover{
+    text-decoration: none;
+    color: var(--bs-body-color);
+}
+
+.statusHref .statusBox:hover{
+    
+    background-color: var(--bs-gray-200);
+}
+
+.customGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns, each occupying half the width */
+    grid-template-rows: 1fr 1fr; /* 2 rows, each occupying half the height */
+    height: 90%; /* to ensure it takes the full height of its container */
+    gap: 2px 0px; /* optional: add some gap between squares */
+}
+
+.squareTitleDiv{
+    margin-bottom: 0.75em;
+}

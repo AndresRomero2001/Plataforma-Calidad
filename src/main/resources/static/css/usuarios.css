@@ -1,0 +1,58 @@
+
+
+#usersTitleDiv{
+    width: 100%;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    padding: 0.5vw;
+}
+
+.userDiv{
+    margin: auto;
+    width: 80%;
+    background-color: var(--bs-gray-200);
+    padding: 0.5vw;
+    margin-bottom: 1vw;
+    border-radius: 0.3vw;
+}
+
+/* #usersTitle{
+    margin-bottom: 4vh;
+} */
+
+.userButton{
+    width: 5vw;
+    margin-left: 2em;
+}
+
+#eliminarUserModalDialog{
+    width: 40vw;
+    max-width: 70%;
+}
+
+#createUserModalDialog{
+    width: 40vw;
+    max-width: 70%;
+}
+
+#modificarUserModalDialog{
+    width: 40vw;
+    max-width: 70%;
+}
+
+#deleteUserMsg{
+    margin-bottom: 5vh;
+    margin-top: 3vh;
+    margin-left: 1vw;
+
+}
+
+.modalRow{
+    margin-bottom: 2vh;
+}
+
+#addUserButton {
+    display: inline-block;
+    margin-left: 2vw;
+    font-size: large;
+}

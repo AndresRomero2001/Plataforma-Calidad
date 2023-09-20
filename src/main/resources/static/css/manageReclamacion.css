@@ -1,0 +1,50 @@
+#addApTitle{
+    /* margin-bottom: 2vw; */
+    display: inline-block;
+}
+
+#titleDiv{
+    margin-bottom: 2vw;
+}
+
+.fileCol {
+    margin-bottom: 2vh;
+}
+
+#manageRcTitle{
+    margin-bottom: 2vw;
+    display: inline-block;
+}
+
+#rcId{
+    font-size: 1.9rem; /* para q tuviese mismo tamaño q el h1 seria 2.5rem */
+    /* background-color: var(--bs-primary); */
+    background-color: var(--bs-secondary);
+    color: white;
+    border-radius: 0.3vw;
+    margin-left: 2vw;
+    padding: 0.3vw 0.7vw;
+}
+
+.reclamacionArchivo{
+    width: 70% !important;
+}
+
+.downloadDocumentoButton{
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+#deleteDocumentoButton{
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+#reclamacion{
+    display: inline-block;
+}
+
+#documentoExtra{
+    display: inline-block;
+}
+

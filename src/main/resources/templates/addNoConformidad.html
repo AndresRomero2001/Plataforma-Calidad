@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/addNoConformidad.css}" href="css/addNoConformidad.css" type="text/css" />
+    <title>Nueva No Conformidad</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+
+    <div class="contentBody">
+        <div class=" contentPanel uniquePanel">
+            <h1 id="addNcTitle">Nueva no conformidad</h1>
+
+            <form role="form" id="addNCForm" onsubmit="event.preventDefault(); addNoConformidad();">
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="origenSelect" class="inputLabel">Origen*</label>
+                        <select class="form-select" id="origenSelect" onchange="manageSelect(event); checkCreateNC()" required>
+                            <option selected value="">Seleccionar...</option>
+                            <option value="Auditoría interna">Auditoría interna</option>
+                            <option value="ENAC">ENAC</option>
+                            <option value="Reclamaciones">Reclamaciones</option>
+                            <option value="Apelaciones">Apelaciones</option>
+                            <option value="Trámites de audiencia">Trámites de Audiencia</option>
+                            <option value="Revisión por dirección">Revisión por la dirección</option>
+                            <option value="Sistema de gestión">Sistema de gestión</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <div class="row otroDiv" id="origenSelectOtroDiv">
+                            <div class="col">
+                                <label for="origenSelectOtro" class="inputLabel">Otro origen*</label>
+                                <input class="form-control" id="origenSelectOtro" onkeyup="checkCreateNC()"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="fecha" class="inputLabel">Fecha*</label>
+                        <input type="date" class="form-control" id="fecha" onchange="checkCreateNC()" required>
+                    </div>
+                </div>
+        
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="alcanceSelect" class="inputLabel">Alcance*</label>
+                        <select class="form-select" id="alcanceSelect" onchange="manageSelect(event); checkCreateNC()" required>
+                            <option selected value="">Seleccionar...</option>
+                            <option value="proyectosIDi">Proyectos IDi</option>
+                            <option value="muestrarios">Muestrarios</option>
+                            <option value="perteVec">PERTE VEC</option>
+                            <option value="perteAgro">PERTE AGRO</option>
+                            <option value="otro">Otro</option> <!-- TODO: que salga un textarea cuando se seleccione otros -->
+                        </select>
+                        <div class="row otroDiv" id="alcanceSelectOtroDiv">
+                            <div class="col">
+                                <label for="alcanceSelectOtro" class="inputLabel">Otro alcance*</label>
+                                <input class="form-control" id="alcanceSelectOtro" onkeyup="checkCreateNC()"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="detectadaPorSelect" class="inputLabel">Detectada por*</label>
+                        <select class="form-select" id="detectadaPorSelect" onchange="manageSelect(event); checkCreateNC()" required>
+                            <option selected value="">Seleccionar...</option>
+                            <option value="auditorENAC">Auditor ENAC</option>
+                            <option value="auditorInterno">Auditor interno</option>
+                            <option value="direccionGeneral">Dirección General</option>
+                            <option value="direccionTecnica">Dirección Técnica</option>
+                            <option value="departamentoCalidad">Departamento de calidad</option>
+                            <option value="departamentoDesarrollo">Departamento de desarrollo</option>
+                            <option value="otro">Otro</option> <!-- TODO: que salga un textarea cuando se seleccione otros -->
+                        </select>
+                        <div class="row otroDiv" id="detectadaPorSelectOtroDiv">
+                            <div class="col">
+                                <label for="detectadaPorSelectOtro" class="inputLabel">Detectada por otro*</label>
+                                <input class="form-control" id="detectadaPorSelectOtro" onkeyup="checkCreateNC()"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="asunto" class="inputLabel">Asunto*</label>
+                        <input class="form-control" id="asunto" onkeyup="checkCreateNC()" required></input>
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="descripcionDesviacion" class="inputLabel">Descripción de la desviación</label>
+                        <textarea class="form-control" id="descripcionDesviacion"></textarea>
+                    </div>
+                    
+                </div>
+        
+                <div class="row mt-5">
+                    <div class="col col-md-1"><hr></div>
+                    <div class="col col-md-2"><span id="expedienteAfectadoTitle">Expediente afectado</span></div>
+                    <div class="col"><hr></div>
+                </div>
+    
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="numeroExpediente" class="inputLabel">Número de expediente</label>
+                        <input class="form-control" id="numeroExpediente"></input>
+                    </div>
+                    <div class="col">
+                        <label for="acronimoExpediente" class="inputLabel">Acrónimo del expediente</label>
+                        <input class="form-control" id="acronimoExpediente"></input>
+                    </div>
+                </div>
+    
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="aplicaExpediente" class="inputLabel">Aplica a expediente afectado</label>
+                        <select class="form-select" id="aplicaExpedienteSelect">
+                            <!-- <option selected value="">Seleccionar...</option> -->
+                            <option value="true">Aplica</option>
+                            <option value="false" selected>No aplica</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="consultora" class="inputLabel">Consultora</label>
+                        <input class="form-control" id="consultora"></input>
+                    </div>
+                </div>
+    
+                <hr class="formRow mb-5 mt-4">
+        
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="apartadosNormaSelect" class="inputLabel">Documento normativo</label>
+                        <select class="form-select" id="apartadosNormaSelect" onchange="manageSelect(event)">
+                            <option selected value="">Seleccionar...</option>
+                            <option value="iso17065">ISO 17065</option>
+                            <option value="RDE">RDE</option>
+                            <option value="manualEntidadesCertificacion">Manual Entidades de Certificación</option>
+                            <option value="ordenPerteVec">Orden PERTE VEC</option>
+                            <option value="ordenPerteAgro">Orden PERTE AGRO</option>
+                            <option value="otro">Otro</option> <!-- TODO: que salga un textarea cuando se seleccione otros -->
+                        </select>
+                        <div class="row otroDiv" id="apartadosNormaSelectOtroDiv">
+                            <div class="col">
+                                <label for="apartadosNormaSelectOtro" class="inputLabel">Otro documento normativo</label>
+                                <input class="form-control" id="apartadosNormaSelectOtro"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="analisisCausasSelect" class="inputLabel">Causas relacionadas con...</label>
+                        <select class="form-select" id="analisisCausasSelect" name="causa" multiple>
+                            <option value="procedimientos">Procedimientos</option>
+                            <option value="registro">Registro</option>
+                            <option value="revision">Revisión</option>
+                            <option value="experto4d">Experto 4D</option>
+                            <option value="expertoTecnico">Experto técnico</option>
+                            <option value="expertoContable">Experto Contable</option>
+                            <option value="gestor">Gestor</option>
+                            <option value="consultora">Consultora</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <div class="row otroDiv" id="analisisCausasSelectOtroDiv">
+                            <div class="col">
+                                <label for="analisisCausasSelectOtro" class="inputLabel">Otras causas</label>
+                                <input class="form-control" id="analisisCausasSelectOtro"></input>
+                            </div>
+                        </div>
+                    </div>
+        
+                    
+                    
+                </div>
+
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="explicacionCausas" class="inputLabel">Explicación de las causas</label>
+                        <textarea class="form-control customTextarea" id="explicacionCausas"></textarea>
+                    </div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="analisisExtensionSelect" class="inputLabel">Análisis de extensión</label>
+                        <select class="form-select" id="analisisExtensionSelect">
+                            <option value="false">No hay expedientes afectados</option>
+                            <option value="true">Hay expedientes afectados</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="explicacionExtension" class="inputLabel">Explicación del análisis extensión</label>
+                        <textarea class="form-control customTextarea" id="explicacionExtension"></textarea>
+                    </div>
+                </div>
+        
+                <div class="row formRow">
+        
+                    <div class="col col-md-6">
+                        <label for="documentoExtension" class="inputLabel">Documento del análisis de extensión</label>
+                        <input type="file" class="form-control" id="documentoExtension">
+                    </div>
+                </div>
+    
+                <div class="row justify-content-center formRow">
+                    <button type="submit" class="btn btn-primary" id="addNoConformidadButton" disabled>Crear no conformidad</button>
+                </div>
+            </form>
+        </div>
+    
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/addNoConformidad.js}" src="js/addNoConformidad.js"></script>
+</body>
+
+</html>

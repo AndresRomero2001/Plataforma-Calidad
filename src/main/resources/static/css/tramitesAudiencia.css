@@ -1,0 +1,91 @@
+#taTitle{
+    display: inline-block;
+}
+
+#taTitleDiv{
+    margin: auto;
+    width: 100%;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    padding: 0.5vw;
+}
+
+.taDiv{
+    margin: auto;
+    width: 100%;
+    background-color: var(--bs-gray-200);
+    padding: 0.5vw;
+    margin-bottom: 1vw;
+    border-radius: 0.3vw;
+}
+
+#addTramiteAudienciaButton{
+    display: inline-block;
+    margin-left: 2vw;
+    font-size: large;
+}
+
+.taDivButton{
+    margin-left: 1vw;
+    width: 3vw !important;
+}
+
+#sortByNumeroTADiv h5{
+    display: inline-block;
+}
+
+#numeroTACol{
+    padding-left: 0.25em !important;
+    padding-right: 0.25em !important;
+}
+
+#sortByNumeroTADiv{
+    padding: 0.25em;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+#sortByNumeroTADiv:hover{
+    background-color: var(--bs-gray-200);
+}
+
+#sortByTAButton{
+    border: 0;
+    background-color: transparent;
+    border-radius: 0.3em;
+}
+
+#sortByEjercicioFiscalDiv h5{
+    display: inline-block;
+}
+
+#sortByEjercicioFiscalDiv{
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+#sortByEjercicioFiscalDiv:hover{
+    background-color: var(--bs-gray-200);
+}
+
+#sortByEjercicioFiscalButton{
+    border: 0;
+    background-color: transparent;
+    border-radius: 0.3em;
+}
+
+.inputLabel{
+    margin-top: 2vh;
+}
+
+#searcherAccordion .accordion-body{
+    padding-bottom: 4vh;
+}
+
+#searchButton{
+    width:8vw;
+    /* margin-top: 3vh; */
+}
+
+

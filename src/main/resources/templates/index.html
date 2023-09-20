@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="css/index.css" type="text/css" />
+    <title>Inicio</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+
+    <div class="contentBody">
+        
+        <div class="indexBody">
+
+            <div class="row">
+                <div class="col homePanel">
+                    <div class="squareTitleDiv d-flex"><h3>No conformidades</h3></div>
+    
+                    <div class="col customGrid">
+                        
+                        <div>
+                            <a class="statusHref" th:href="@{/noConformidades?estado=Abierta}">
+                                <div class="statusBox text-center" >
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Abiertas</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGreen">
+                                        <h5 class="statusNumber" th:text="${ncAbiertas}">5</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/noConformidades?estado=Pendiente}">
+                                <div class="statusBox text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Pendientes</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainOrange">
+                                        <h5 class="statusNumber" th:text="${ncPendientes}">15</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div>
+                            <a class="statusHref" th:href="@{/noConformidades?estado=Cerrada}">
+                                <div class="statusBox text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Cerradas</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGray">
+                                        <h5 class="statusNumber" th:text="${ncCerradas}">7</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/noConformidades?estado=Urgente}">
+                                <div class="statusBox text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Urgentes (&lt;15d)</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainRed">
+                                        <h5 class="statusNumber" th:text="${ncUrgentes}">7</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="col homePanel rightSquare">
+                    <div class="squareTitleDiv d-flex"><h3>Trámites de Audiencia</h3></div>
+    
+                    <div class="col customGrid">
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ta/tramitesAudiencia?resolucionDefinitiva=Favorable}">
+                                <div class="statusBox abiertasDiv text-center" >
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Favorable</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGreen">
+                                        <h5 class="statusNumber" th:text="${taFavorables}">5</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ta/tramitesAudiencia?resolucionDefinitiva=FavorableParcial}">
+                                <div class="statusBox pendientesDiv text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Favorables par.</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainOrange">
+                                        <h5 class="statusNumber" th:text="${taFavorablesParciales}">15</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ta/tramitesAudiencia?resolucionDefinitiva=SinResolucionDefinitiva}">
+                                <div class="statusBox cerradasDiv text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Sin res. def.</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGray">
+                                        <h5 class="statusNumber" th:text="${taSinResolucionDefinitiva}">7</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ta/tramitesAudiencia?resolucionDefinitiva=Desfavorable}">
+                                <div class="statusBox urgentesDiv text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Desfavorables</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainRed">
+                                        <h5 class="statusNumber" th:text="${taDesfavorables}">7</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col homePanel">
+                    <div class="squareTitleDiv d-flex"><h3>Apelaciones</h3></div>
+    
+                    <div class="col customGrid">
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ap/apelaciones?resolucion=Estimada}">
+                                <div class="statusBox abiertasDiv text-center" >
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Estimadas</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGreen">
+                                        <h5 class="statusNumber" th:text="${apEstimadas}">5</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ap/apelaciones?resolucion=Desestimada}">
+                                <div class="statusBox pendientesDiv text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Desestimadas</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainRed">
+                                        <h5 class="statusNumber" th:text="${apDesestimadas}">15</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/ap/apelaciones?resolucion=SinResolucion}">
+                                <div class="statusBox cerradasDiv text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Sin resolución</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGray">
+                                        <h5 class="statusNumber" th:text="${apSinResolucion}">7</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <div class="col homePanel rightSquare">
+                    <div class="squareTitleDiv d-flex"><h3>Reclamaciones</h3></div>
+    
+                    <div class="col customGrid">
+                        
+                        <div>
+                            <a class="statusHref" th:href="@{/rc/reclamaciones?estado=Abierta}">
+                                <div class="statusBox text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Abiertas</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGreen">
+                                        <h5 class="statusNumber" th:text="${rcAbiertas}">a</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+    
+                        <div>
+                            <a class="statusHref" th:href="@{/rc/reclamaciones?estado=Cerrada}">
+                                <div class="statusBox text-center">
+                                    <div class="statusTitleDiv">
+                                        <span class="statusTitle">Cerradas</span>
+                                    </div>
+                                    <div class="statusNumberDiv backgroundMainGray">
+                                        <h5 class="statusNumber" th:text="${rcCerradas}">a</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+        
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>

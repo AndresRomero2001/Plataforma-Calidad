@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Nav fragment - rest intentionally left empty</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <!-- barra de navegación bootstrap 5 -->
+    <header th:fragment="sidebar">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar">
+            <div class="sidebarHeader text-center">
+              <!-- <h2 id="sidebarCompanyName">Acerta</h2> -->
+              <a th:href="@{/}">
+                <div id="sidebarLogoDiv" >
+                  <img th:src="@{/img/logoAcerta.png}" src="/img/logoAcerta.png" id="sidebarLogo" alt="logo Acerta" width="100" height="100" class="d-inline-block">
+                </div>
+              </a>
+            </div>
+            <hr>
+
+            <th:block th:if="${session.u}">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a th:href="@{/}" class="nav-link text-white" aria-current="page" id="inicio">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                    Inicio
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/noConformidades}" class="nav-link text-white" id="noConformidades">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg> -->
+                    No conformidades
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/ta/tramitesAudiencia}" class="nav-link text-white" id="tramitesAudiencia">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg> -->
+                    Trámites de audiencia
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/ap/apelaciones}" class="nav-link text-white" id="apelaciones">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg> -->
+                    Apelaciones
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{/rc/reclamaciones}" class="nav-link text-white" id="reclamaciones">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg> -->
+                    Reclamaciones
+                  </a>
+                </li>
+                <li th:if="${session.u.hasRole('ADMIN')}">
+                  <a th:href="@{/admin/usuarios}" class="nav-link text-white" id="usuarios">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg> -->
+                    Usuarios
+                  </a>
+                </li>
+              </ul>
+              <hr>
+              <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img th:src="@{/img/userIcon.png}" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong th:text="${session.u.firstName}" id="sidebarFirstName">Pringao</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                  <!-- <li><a class="dropdown-item" href="#">New project...</a></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li> -->
+                  <li>
+                      <form th:action="@{/logout}" method="post">
+                          <button type="submit" class="dropdown-item">logout</button>
+                      </form>
+                  </li>
+                </ul>
+              </div>
+            </th:block>
+
+            <th:block th:unless="${session.u}">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a th:href="@{/login}" class="nav-link text-white" aria-current="page" id="login">
+                    <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                    Login
+                  </a>
+                </li>
+              </ul>
+            </th:block>
+            
+          </div>
+    </header>
+
+    
+</body>
+
+</html>

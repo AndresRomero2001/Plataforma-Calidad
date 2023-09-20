@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" href="css/login.css" type="text/css" />
+    <title>Login</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- <header th:replace="fragments/sidebar.html :: sidebar"></header> -->
+
+    <div class="loginBody">
+        <div class="container contentPanel" id="loginPanel">
+            <div id="loginLogoDiv" class="text-center">
+                <img th:src="@{/img/fullLogo.png}" src="/img/fullLogo.png" id="loginLogo" alt="logo Acerta">
+            </div>
+            <form class="form-signin m-5 mb-0 text-center" method="post" th:action="@{/login}">
+                <h2 class="form-signin-heading" id="loginHeader">Inicio de sesión</h2>
+                <p th:if="${#request.getQueryString() == 'error'}" class="loginError">
+                    Nombre de usuario o contraseña incorrectos
+                </p>
+                <div class="loginInputGroup text-center">
+                    <label for="loginUsername" class="visually-hidden">Nombre de usuario</label>
+                    <input type="text" id="loginUsername" name="username" class="form-control" placeholder="Nombre de usuario" required="required">
+                </div>
+                <div class="loginInputGroup">
+                    <label for="loginPassword" class="visually-hidden">Contraseña</label>
+                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="Contraseña" required="required">
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" id="loginButton" type="submit">Acceder</button>
+            </form>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>

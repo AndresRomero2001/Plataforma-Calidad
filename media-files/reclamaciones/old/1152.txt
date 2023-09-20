@@ -1,0 +1,41 @@
+- En la lista aparezca el origen **HECHO**
+
+- Que haya buscador en la lista de no conformidades **HECHO**
+
+- Iconos para gestionar y eliminar en la lista **HECHO**
+
+- Encabezado con titulo de cada columna **HECHO**
+
+- No aplica expediente afectado **HECHO**
+
+- Heading: documento normativo y Otro documento normativo **HECHO**
+
+- Consultora con expediente afectado al lado de la columna de aplica o no aplica **HECHO**
+
+- Falta procedimiento en desplegable analisis causas **HECHO**
+
+- Analisis causas heading: Causas relacionadas con... **HECHO**
+
+- Select analisis causas tiene que ser multiple **HECHO** (8h!!)
+
+- Encabezado columnas acciones **HECHO**
+
+- Todo lo que tenga borrar que tenga modales **HECHO**
+
+- Hablar con mats para desplegar primera version de NCs y Acciones
+
+- Lo primero despues de acabar NCs y Acciones, hacer tramites
+
+- Habia un inputLabel de fecha de NC sin negrita **HECHO**
+
+- Fecha ultima modificacion para seguimiento accion (ultima fecha seguimiento), q se llame "Ultimo seguimiento" **HECHO**
+
+
+
+- Extra: flechas para de mayor a menor o viceversa en los encabezados de las columnas de id y fecha
+
+- Extra: que haya parejas fecha seguimiento y seguimiento y funcione como las evidencias que pueda haber varias filas
+
+- Extra: que pida contraseña e identificacion al borrar cosas. Historial de nombres de usuario de quien ha borrado que
+
+- Extra: que las consultoras sean un desplegable donde las opciones se puedan añadir y borrar

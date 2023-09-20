@@ -1,0 +1,3 @@
+- Detectar cuando se selecciona "otro" en un campo obligatorio para la creacion y obligar a q e el otroInput no este vacio antes de desbloquear el boton de crear ...HECHO...
+
+- Que los text area puedan tener mas de 255 chars

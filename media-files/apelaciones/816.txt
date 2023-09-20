@@ -1,0 +1,120 @@
+estoy poniendo en las variables los nombres q hay en el excel...
+
+---------
+
+- Acciones reparadoras y de contencion no tienen estado?
+- En analisis causas y extension no hay opcion "otros"
+
+al final todas las acciones son como la correctiva
+analisis de causas si deberia tener otros
+
+---------
+
+- Como se llama el documento a cargar en analisis extension
+--- Documento del analisis de extension
+--- Explicacion del analisis de extension
+
+- Por que en tramites audiencia la consultora tiene q ser un desplegable y no q lo metan a mano como en no conformidad?
+--- Mejor desplegable en todos lados con gestion de añadir/eliminar, pero lo dejo para el final
+
+--------------------------
+- Hay 2 resoluciones en Tramites audiencia? -- aclarado
+
+- Tienen q decirme los motivos de tramites audiencia
+novedad
+similitud
+otros
+
+- Que atributos son obligatorios en TA -- aclarado
+
+- Que atributos quieren q aparezca en la lista de TAs ¿buscador?
+acotar numExp a No. Exped
+añadir consultora
+
+buscador con campos obligatorios (consultora tmb)
+filtrar por id y por ejerFiscal
+
+- Los TA, Apelaciones, Reclamaciones pueden tener NC asociadas. ¿Solo 1 o mas de 1?
+-- Puede haber mas de 1
+-- lo meten a mano
+
+- El documento de certificacion es solo 1?
+-- no es un archivo
+-- es de ko/ok
+
+- En revisión del proceso hay desplegables q no son ok/ko?
+
+- Imparcialidad de expertos (Conflicto de interés): titulo muy largo, se puede reducir?
+-- reducir a imparc de expertos
+
+- Imparcialidad expertos no tiene checkpoints que comprobar?
+-- se hace revision de la imparcialdiad d elos experos involucrados comprobando q no se encuentra ninguna relacion que pueda suponer un conflicto de interes para la evaluacion
+
+solicitud requerimientos
+- Se comprueba q totas las solic de req estan registradas y cerradas
+
+- Doc de certificacion
+-- se comprueba q los docs de certificacion (certificado e informe asociado) son correctos
+
+- El orden d los campos esta bn? hay algunos campos q vayan emparejados (input-fecha)
+-- intercambiar motivo x consultora
+
+- El estado para poner en inicio es la resolucion? la normal o la definitiva?
+el estado es la resolucion definitiva
+
+- No hay "urgente"? plazo que acabe?
+-- no hace falta hacerlo
+
+
+------- APELACIONES -------
+
+- Revision del proceso es igual que el de tramites, pero no hay documento de certificacion?
+-- si q tiene q haber --- HECHO
+
+- En apelaciones no hay textarea de comentarios al final?
+-- tmb quieren campo comentarios  --- HECHO
+
+- que campos son obligatorios
+-- esta bien como esta (he añadido fecha recepcion por facilitarme la vida a la hora de filtrar y los nulls)
+
+- que campos se tienen que ver en la lista
+-- cambiar cliente por estado --- HECHO
+-- cambiar fecha certif por fecha recepcion --- HECHO
+
+- Fecha del Informe de respuesta o plazo limite? que uso
+-- son cosas diferentes, añadir nuevo campo que sea plazo limite autocalculado a partir de fecha recepcion + 2 meses --- HECHO (a excepcion de precarga del plazo limite cuando se añade la fecha recepcion)
+
+- Resolucion al final esta un poco suelto, lo dejo o lo subo?
+-- esta bien pero ponerlo encima de no conformidades  --- HECHO
+
+
+------- RECLAMACIONES -------
+
+- Si no se rellena el estado, es abierta por defecto? o q haya un estado q sea sin estado
+-- por defecto esta abierta
+
+- No se muy bien como va lo de los docs de formulario web reclamaciones. Hay uno unico y despues documentacion extra? o es todo lo mismo? q me digan nombres un poco mas especificos para ambas cosas
+
+- Formulario es lo mismo que documento?
+-- mejor usar documento de respuesta
+
+- que campos son obligatorios
+-- en el excel
+
+- que campos se tienen que ver en la lista
+-- en el excel
+
+-- cambiar formulario web reclamaciones por Registro del formulario web
+
+-- cambiar documentacion extra a Documento
+
+- registro formulario es un campo unico
+- luego hay lista de doucmentos extra
+
+
+
+
+
+
+
+
