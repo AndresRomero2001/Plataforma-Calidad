@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/manageReclamacion.css}" href="css/manageReclamacion.css" type="text/css" />
+    <title>Nueva reclamación</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+    
+    <input type="hidden" th:value="${rc.id}" id="rcId"></input>
+
+    <div class="contentBody">
+
+        <div class="contentPanel firstPanel">
+
+            <h1 id="manageRcTitle">Reclamación</h1><span id="rcId" th:text="'Nº ' + ${rc.id}">asd</span>
+
+            <div class="row formRow">
+                <div class="col">
+                    <label for="numeroExpediente" class="inputLabel">Número de expediente*</label>
+                    <input class="form-control" id="numeroExpediente" th:value="${rc.numeroExpediente}" onchange="updateReclamacion()"></input>
+                </div>
+                <div class="col">
+                    <label for="acronimo" class="inputLabel">Acrónimo*</label>
+                    <input class="form-control" id="acronimo"  maxlength="10" th:value="${rc.acronimo}" onchange="updateReclamacion()"></input>
+                </div>
+            </div>
+
+            <div class="row formRow">
+                <div class="col">
+                    <label for="fechaRecepcion" class="inputLabel">Fecha de recepción*</label>
+                    <input type="date" class="form-control" id="fechaRecepcion" th:value="${rc.fechaRecepcion}" onchange="autoloadFechaMaximaRespuesta(event); updateReclamacion()" ></input>
+                </div>
+                <div class="col">
+                    <label for="fechaMaximaRespuesta" class="inputLabel">Fecha máxima de respuesta</label>
+                    <input type="date" class="form-control" id="fechaMaximaRespuesta" th:value="${rc.fechaMaximaRespuesta}" onchange="updateReclamacion()"></input>
+                </div>
+            </div>
+
+            <div class="row formRow">
+                <div class="col">
+                    <label for="consultora" class="inputLabel">Consultora*</label>
+                    <input class="form-control" id="consultora" th:value="${rc.consultora}" onchange="updateReclamacion()"></input>
+                </div>
+                <div class="col" id="registroFormularioCol">
+                    <th:block th:if="${rc.registroFormulario != null}">
+                        <label for="registroFormulario" class="inputLabel">Registro del formulario web*</label>
+                        <input type="text" class="form-control reclamacionArchivo" id="reclamacion" th:value="${rc.registroFormulario.name}" disabled>
+                        <a class="iconLinkButton " th:href="@{/media/reclamaciones/{id}{extension}?downloadName={name}(id=${rc.registroFormulario.id},extension=${rc.registroFormulario.extension}, name=${rc.registroFormulario.name})}">
+                            <button type="button" class="btn btn-primary downloadDocumentoButton">
+                                <i class="bi bi-file-earmark-arrow-down"></i>
+                            </button>
+                        </a>
+                        <button type="button" class="btn btn-danger" id="deleteDocumentoButton" data-bs-toggle="modal" data-bs-target="#eliminarRegistroFormularioModal">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </th:block>
+                    <th:block th:unless="${rc.registroFormulario != null}">
+                        <label for="registroFormulario" class="inputLabel">Registro del formulario web*</label>
+                        <input type="file" class="form-control" id="registroFormulario" onchange="uploadRegistroFormulario(event)"></input>
+                    </th:block>
+                    
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col col-md-1"><hr></div>
+                <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Documentación extra</span></div>
+                <div class="col"><hr></div>
+            </div>
+
+            <div class="row formRow">
+                <th:block th:if="${#lists.isEmpty(rc.documentosExtra)}">
+                    <div class="col col-md-6 fileCol docExtra">
+                        <label for="" class="inputLabel">Documento</label>
+                        <input type="file" class="form-control documentoExtra" onchange="uploadReclamacionFile(event, 'documentoExtra')"></input>
+                    </div>
+                </th:block>
+
+                <th:block th:each="file,iter: ${rc.documentosExtra}">
+                    <div class="col col-md-6 fileCol docExtra">
+                        <label for="documentoExtra" class="inputLabel">Documento</label>
+                        <input type="text" class="form-control reclamacionArchivo" id="documentoExtra" th:value="${file.archivo.name}" disabled>
+                        <a class="iconLinkButton " th:href="@{/media/documentosExtra/{id}{extension}?downloadName={name}(id=${file.archivo.id},extension=${file.archivo.extension}, name=${file.archivo.name})}">
+                            <button type="button" class="btn btn-primary downloadDocumentoButton">
+                                <i class="bi bi-file-earmark-arrow-down"></i>
+                            </button>
+                        </a>
+                        <input type="hidden" th:value="${file.id}" id="rcFileId"></input>
+                        <button type="button" class="btn btn-danger" id="deleteDocumentoButton" data-bs-toggle="modal" data-bs-target="#eliminarDocumentoModal" onclick="updateDocumentoToDelete(event)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </th:block>
+                
+                <div class="col col-md-6" id="colToAppendDocumentosExtra">
+                    <label for="" class="inputLabel transparentLabel">Documento</label>
+                    <button class="btn btn-primary" id="addDocumentoExtraHTML" onclick="addDocumentoExtraForm()" type="button">Añadir documento extra</button>
+                </div>
+            </div>
+
+            <hr class="formRow mb-5 mt-4">
+
+            <div class="row formRow">
+                
+                <div class="col col-md-6">
+                    <label for="estadoSelect" class="inputLabel">Estado</label>
+                    <select class="form-select" id="estadoSelect" onchange="updateReclamacion()">
+                        <option th:selected="${rc.estado == 'Abierta'}" value="Abierta">Abierta</option>
+                        <option th:selected="${rc.estado == 'Cerrada'}" value="Cerrada">Cerrada</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col col-md-1"><hr></div>
+                <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Documentos de respuesta</span></div>
+                <div class="col"><hr></div>
+            </div>
+
+            <div class="row formRow">
+                <th:block th:if="${#lists.isEmpty(rc.documentosRespuestaExtra)}">
+                    <div class="col col-md-6 fileCol docRespuestaExtra">
+                        <label for="" class="inputLabel">Documento</label>
+                        <input type="file" class="form-control documentoExtra" onchange="uploadReclamacionFile(event, 'documentoRespuestaExtra')"></input>
+                    </div>
+                </th:block>
+
+                <th:block th:each="file,iter: ${rc.documentosRespuestaExtra}">
+                    <div class="col col-md-6 fileCol docRespuestaExtra">
+                        <label for="documentoExtra" class="inputLabel">Documento</label>
+                        <input type="text" class="form-control reclamacionArchivo" id="documentoExtra" th:value="${file.archivo.name}" disabled>
+                        <a class="iconLinkButton " th:href="@{/media/documentosExtra/{id}{extension}?downloadName={name}(id=${file.archivo.id},extension=${file.archivo.extension}, name=${file.archivo.name})}">
+                            <button type="button" class="btn btn-primary downloadDocumentoButton">
+                                <i class="bi bi-file-earmark-arrow-down"></i>
+                            </button>
+                        </a>
+                        <input type="hidden" th:value="${file.id}" id="rcFileId"></input>
+                        <button type="button" class="btn btn-danger" id="deleteDocumentoButton" data-bs-toggle="modal" data-bs-target="#eliminarDocumentoModal" onclick="updateDocumentoToDelete(event)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </th:block>
+
+                <div class="col col-md-6" id="colToAppendDocumentosRespuestaExtra">
+                    <label for="" class="inputLabel transparentLabel">Estado</label>
+                    <button class="btn btn-primary" id="addDocumentoRespuestaExtraHTML" onclick="addDocumentoRespuestaExtraForm()" type="button">Añadir documento extra</button>
+                </div>
+            </div>
+
+            <hr class="formRow mb-5 mt-4">
+
+        </div>
+
+        <div class="contentPanel lastPanel">
+            <h3 class="comentariosTitle">Comentarios</h3>
+            <textarea id="comentarios" class="form-control customTextarea" th:text="${rc.comentarios}" onchange="updateReclamacion();"></textarea>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR REGISTRO FORMULARIO -->
+    <div class="modal fade" id="eliminarRegistroFormularioModal" tabindex="-1" aria-labelledby="eliminarRegistroFormularioModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="eliminarRegistroFormularioModalDialog">
+          <div class="modal-content" id="eliminarRegistroFormularioModalContent">
+                <div class="modal-body" id="eliminarRegistroFormularioModalBody">
+                    
+                    <div class="d-flex align-items-center customModalContent">
+                        <div class="row align-items-center">
+                            <div class="col col-md-4 offset-1 d-flex align-items-center">
+                                <i class="bi bi-exclamation-circle alertIcon" ></i>
+                            </div>
+                            <div class="col  col-md-6 d-flex align-items-center">
+                                <p class="confirmationMsg">¿Seguro que deseas eliminar el registro del formulario?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger deleteModalButton" onclick="deleteRegistroFormulario()">Eliminar</button>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR DOCUMENTO -->
+    <div class="modal fade" id="eliminarDocumentoModal" tabindex="-1" aria-labelledby="eliminarDocumentoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="eliminarDocumentoModalDialog">
+          <div class="modal-content" id="eliminarDocumentoModalContent">
+                <div class="modal-body" id="eliminarDocumentoModalBody">
+                    
+                    <div class="d-flex align-items-center customModalContent">
+                        <div class="row align-items-center">
+                            <div class="col col-md-4 offset-1 d-flex align-items-center">
+                                <i class="bi bi-exclamation-circle alertIcon" ></i>
+                            </div>
+                            <div class="col  col-md-6 d-flex align-items-center">
+                                <p class="confirmationMsg">¿Seguro que deseas eliminar el documento?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger deleteModalButton" onclick="deleteDocumento()">Eliminar</button>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Toast modificacion -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="modifiedToast" class="toast hide"  data-bs-delay="4000" role="alert" aria-live="assertive" aria-atomic="true">
+            <!-- <div class="row toast-header">
+            </div> -->
+            <div class="row toast-body">
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+                <div class="col col-md-3 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-check-circle customCheck"></i>
+                </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <p class="me-auto toastText"> Cambios realizados correctamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/manageReclamacion.js}" src="js/manageReclamacion.js"></script>
+</body>
+
+</html>

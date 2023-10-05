@@ -1,0 +1,143 @@
+#ncTitle{
+    display: inline-block;
+}
+
+#ncTitleDiv{
+    margin: auto;
+    width: 100%;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    padding: 0.5vw;
+}
+
+.ncDiv{
+    margin: auto;
+    width: 100%;
+    background-color: var(--bs-gray-200);
+    padding: 0.5vw;
+    margin-bottom: 1vw;
+    border-radius: 0.3vw;
+}
+
+#searchButtonLabel{
+    color: transparent;
+}
+
+#searchButton{
+    width:8vw;
+}
+
+.ncDiv .h6{
+    font-size: 2vh !important;
+}
+
+
+
+#sortByDateButton{
+    border: 0;
+    background-color: transparent;
+    border-radius: 0.3em;
+}
+
+/* #sortByDateButton:hover{
+    background-color: var(--bs-light);
+}
+
+#sortByDateButton:active{
+    background-color: var(--bs-gray-200);
+} */
+
+#sortByIdButton{
+    border: 0;
+    background-color: transparent;
+    border-radius: 0.3em;
+}
+
+/* #sortByIdButton:hover{
+    background-color: var(--bs-light);
+}
+
+#sortByIdButton:active{
+    background-color: var(--bs-gray-200);
+} */
+
+/* #estadoCol{
+    padding: 0;
+} */
+
+#estadoCol h6{
+    display: inline-block;
+}
+
+/* #dropdownEstadoButton{
+    background-color: transparent;
+    color: var(--bs-gray-700);
+    border: 0;
+}
+
+#dropdownEstadoButton:hover{
+    background-color: var(--bs-light);
+}
+
+#dropdownEstadoButton:active{
+    background-color: var(--bs-gray-200);
+} */
+
+#addNoConformidadButton{
+    display: inline-block;
+    margin-left: 2vw;
+    font-size: large;
+}
+
+#addNoConformidadButton i{
+    font-weight: 500;
+}
+
+.ncDivButton{
+    margin-left: 1vw;
+    width: 3vw !important;
+}
+
+.inputLabel{
+    margin-top: 2vh;
+}
+
+#searcherAccordion .accordion-body{
+    padding-bottom: 4vh;
+}
+
+#noCoincidencesMsg{
+    margin-top: 5vh;
+    display: none;
+}
+
+#sortByIdCol:hover{
+    background-color: var(--bs-gray-200);
+    cursor: pointer;
+}
+
+#sortByIdDiv h5{
+    display: inline-block;
+}
+
+#sortByIdDiv{
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+#sortByIdDiv:hover{
+    background-color: var(--bs-gray-200);
+}
+
+#sortByFechaDiv{
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+#sortByFechaDiv:hover{
+    background-color: var(--bs-gray-200);
+}
+
+

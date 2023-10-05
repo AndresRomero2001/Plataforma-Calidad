@@ -1,0 +1,207 @@
+
+
+.downloadButton{
+    margin-top: -2px;
+    margin-left: 2px;
+}
+
+.deleteDocumentoExtensionButton{
+    margin-top: -2px;
+    margin-left: 2px;
+}
+
+#manageNCTitle{
+    margin-bottom: 2vw;
+    display: inline-block;
+}
+
+#ncId{
+    font-size: 1.9rem; /* para q tuviese mismo tamaño q el h1 seria 2.5rem */
+    /* background-color: var(--bs-primary); */
+    background-color: var(--bs-secondary);
+    color: white;
+    border-radius: 0.3vw;
+    margin-left: 2vw;
+    padding: 0.3vw 0.7vw;
+}
+
+#accionesTitle{
+    margin-bottom: 2vw;
+}
+
+.accionesDivider{
+    margin-bottom: 2vw;
+    margin-top: 3vw;
+}
+
+#addNCForm{
+    width: 80%;
+    margin: auto;
+}
+
+/* he sobreescrito el archivo de bootstrap para q los accordion-item tengan borde superior */
+.accordion-item{
+    margin-bottom: 1vw;
+}
+
+#addEvidenciaButton{
+    width: 10vw;
+}
+
+.evidenciaArchivo{
+    width: 70% !important;
+}
+
+#responsableSelectOtro{
+    width: 70% !important;
+}
+
+#addAccionButton{
+    width: 8vw;
+}
+
+#deleteAccionButton{
+    width: 10vw;
+    /* font-size: large; */
+}
+
+#evidencia{
+    display: inline-block;
+}
+
+.downloadEvidenciaButton{
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+#deleteEvidenciaButton{
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+#addAccionButton{
+    margin-top: 3vw;
+    width: 12vw;
+    height: 2.5vw;
+}
+
+.accordionHeaderText{
+    font-family: var(--bs-body-font-family);
+    margin-left: 2vw;
+    /* margin: auto !important; */
+}
+
+#expedienteAfectadoTitle{
+    font-size: 0.9vw;
+    font-weight: 500;
+}
+
+.headerTitles{
+    color: var(--bs-gray-700);
+}
+
+#fakeAccordionButton{
+    border: 0 !important;
+}
+
+#fakeAccordionItem{
+    border: 0 !important;
+    margin-bottom: 1vh !important;
+}
+
+.customAccordionButton{
+    width: 98%;
+    margin: auto;
+    background-color: transparent;
+    padding: 0 !important;
+    padding-right: 2vw !important;
+}
+
+/* .insideButtonRow{
+    background-color: aqua;
+} */
+
+.customAccordionButton .row {
+    width: 95% !important;
+}
+
+#deleteDocumentoExtensionButton{
+    margin-left: 0.5vw;
+    font-size: large;
+}
+
+.documentoExtensionButtons{
+    display: inline-block;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* #documentoExtension {
+    width: auto !important;
+    min-width: 50px;
+    max-width: 300px;
+    display: inline;
+} */
+
+#documentoExtensionCustom{
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    padding: 0.375rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin: 0;
+    height: 41px !important;
+    display: inline-block;
+    
+}
+
+.alertIcon{
+    font-size: 10em;
+    color: var(--bs-danger);
+    padding: 0;
+    margin: 0;
+}
+
+.customModalContent{
+    /* background-color: aqua; */
+}
+
+/* #eliminarModalDialog{
+    width: 35vw ;
+    max-width: 70% ;
+    min-width: none;
+} */
+
+#customSelectPicker{
+    width: 80% !important;
+}
+
+/* .modal-dialog{
+    width: 35vw ;
+    max-width: 70% ;
+    min-width: none;
+} */
+
+.confirmationMsg{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.deleteModalButton{
+    width: 6vw;
+    margin-left: 1vw;
+}
+
+#noAccionesMsg{
+    margin-top: 6vh;
+    margin-bottom: 3vh;
+}
+
+.accordion-item:not(:first-of-type) {
+    border: 1px solid rgba(0, 0, 0, 0.125) !important;
+}

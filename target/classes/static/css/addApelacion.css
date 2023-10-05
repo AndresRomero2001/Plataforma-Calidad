@@ -1,0 +1,86 @@
+
+
+#addApTitle{
+    /* margin-bottom: 2vw; */
+    display: inline-block;
+}
+
+#titleDiv{
+    margin-bottom: 2vw;
+}
+
+.hrTitle{
+    font-size: 0.9vw;
+    font-weight: 500;
+}
+
+#revisionDocumentalSwitch{
+    width: 4em !important;
+}
+
+#solicitudRequerimientosSwitch{
+    width: 4em !important;
+}
+
+#imparcialidadExpertosSwitch{
+    width: 4em !important;
+}
+
+#revisionInforme4dSwitch{
+    width: 4em !important;
+}
+
+#verificacionCompetenciasSwitch{
+    width: 4em !important;
+}
+
+#revisionInformeTecnicoSwitch{
+    width: 4em !important;
+}
+
+#revisionEvaluacionContableSwitch{
+    width: 4em !important;
+}
+
+#documentoCertificacionSwitch{
+    width: 4em !important;
+}
+
+.incidenciasRowDiv{
+    margin-top: 1em;
+    display: none;
+}
+
+#revisionProcesoTitle{
+    /* margin-top: 5vh; */
+    margin-bottom: 3vh;
+}
+
+.ncCol{
+    margin-bottom: 2vh;
+}
+
+#addNCformButton{
+    margin-top: 2vh;
+}
+
+#ncAsociadaTitle{
+    margin-bottom: 2vh;
+}
+
+#floatButtonDiv{
+    position:fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 3vh;
+    /* margin-right: 2vh; */
+}
+
+#comentariosTitle{
+    margin-bottom: 2vh;
+}
+
+#comentarios{
+    min-height: 15vh;
+    margin-bottom: 3vh;
+}

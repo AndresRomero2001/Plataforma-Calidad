@@ -74,7 +74,7 @@ function search(){
     go(config.rootUrl + "/searchNoConformidad", 'POST', params)
     .then(results => {console.log("todo ok")
         /* window.location.href = "http://localhost:8080/noConformidades" */
-        history.pushState({}, "", "https://plataformacalidad.duckdns.org/noConformidades");
+        history.pushState({}, "", "https://plataformacalidad.es/noConformidades");
         hideAll();
         let html = `
             <div class="ncBlock">

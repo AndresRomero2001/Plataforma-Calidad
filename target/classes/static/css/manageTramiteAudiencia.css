@@ -1,0 +1,117 @@
+
+
+#manageTATitle{
+    margin-bottom: 2vw;
+    display: inline-block;
+}
+
+#taId{
+    font-size: 1.9rem; /* para q tuviese mismo tamaño q el h1 seria 2.5rem */
+    /* background-color: var(--bs-primary); */
+    background-color: var(--bs-secondary);
+    color: white;
+    border-radius: 0.3vw;
+    margin-left: 2vw;
+    padding: 0.3vw 0.7vw;
+}
+
+#addCodigoUnescoButton{
+    margin-bottom: 3vh;
+}
+
+#revisionProcesoTitle{
+    margin-bottom: 3vh;
+}
+
+.codigoUnescoCol{
+    margin-bottom: 1.5vw; /* el mismo que formRow */
+}
+
+.codigoUnesco{
+    display: inline-block;
+    width: 12vw !important;
+}
+
+#revisionDocumentalSwitch{
+    width: 4em !important;
+}
+
+#solicitudRequerimientosSwitch{
+    width: 4em !important;
+}
+
+#imparcialidadExpertosSwitch{
+    width: 4em !important;
+}
+
+#revisionInforme4dSwitch{
+    width: 4em !important;
+}
+
+#verificacionCompetenciasSwitch{
+    width: 4em !important;
+}
+
+#revisionInformeTecnicoSwitch{
+    width: 4em !important;
+}
+
+#revisionEvaluacionContableSwitch{
+    width: 4em !important;
+}
+
+#documentoCertificacionSwitch{
+    width: 4em !important;
+}
+
+#ncAsociadaTitle{
+    margin-bottom: 2vh;
+}
+
+#addNCformButton{
+    margin-top: 2vh;
+}
+
+#comentariosTitle{
+    margin-bottom: 2vh;
+}
+
+#comentarios{
+    min-height: 15vh;
+    margin-bottom: 3vh;
+}
+
+.ncCol{
+    margin-bottom: 2vh;
+}
+
+.verNcCol{
+    margin-left: -30px;
+}
+
+.verNcButton{
+    width: 4vw;
+}
+
+.deleteNcButton{
+    width: 4vw;
+
+}
+
+#desvincularNCModalDialog{
+    width: 40vw;
+    max-width: 70%;
+}
+
+#desvincularCodigoUnescoModalDialog{
+    width: 40vw;
+    max-width: 70%;
+}
+
+.deleteCodigoUnescoButton{
+    margin-top: -4px;
+}
+
+.incidenciasRowDiv{
+    display: none;
+}

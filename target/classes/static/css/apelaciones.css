@@ -1,0 +1,73 @@
+
+
+#apTitle{
+    display: inline-block;
+}
+
+#apTitleDiv{
+    margin: auto;
+    width: 100%;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    padding: 0.5vw;
+}
+
+.apDiv{
+    margin: auto;
+    width: 100%;
+    background-color: var(--bs-gray-200);
+    padding: 0.5vw;
+    margin-bottom: 1vw;
+    border-radius: 0.3vw;
+}
+
+.apDivButton{
+    margin-left: 1vw;
+    width: 3vw !important;
+}
+
+#addApelacionButton{
+    display: inline-block;
+    margin-left: 2vw;
+    font-size: large;
+}
+
+#searchButton{
+    width:8vw;
+}
+
+.inputLabel {
+    margin-top: 2vh;
+}
+
+#sortByDateButton{
+    border: 0;
+    background-color: transparent;
+    border-radius: 0.3em;
+}
+
+#sortByIdButton{
+    border: 0;
+    background-color: transparent;
+    border-radius: 0.3em;
+}
+
+#sortByFechaRecepcionDiv{
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+#sortByFechaRecepcionDiv:hover{
+    background-color: var(--bs-gray-200);
+}
+
+#sortByIdDiv{
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+#sortByIdDiv:hover{
+    background-color: var(--bs-gray-200);
+}

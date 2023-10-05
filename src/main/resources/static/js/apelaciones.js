@@ -49,7 +49,7 @@ function search(){
 
     go(config.rootUrl + "/ap/searchApelacion", 'POST', params)
     .then(results => {console.log("todo ok")
-        history.pushState({}, "", "https://plataformacalidad.duckdns.org/ap/apelaciones");
+        history.pushState({}, "", "https://plataformacalidad.es/ap/apelaciones");
         hideAll();
 
         let html = `

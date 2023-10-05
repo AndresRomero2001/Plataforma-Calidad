@@ -70,7 +70,7 @@ function search(){
 
     go(config.rootUrl + "/ta/searchTramiteAudiencia", 'POST', params)
     .then(results => {console.log("todo ok")
-        history.pushState({}, "", "https://plataformacalidad.duckdns.org/ta/tramitesAudiencia");
+        history.pushState({}, "", "https://plataformacalidad.es/ta/tramitesAudiencia");
         hideAll();
 
         let html = `

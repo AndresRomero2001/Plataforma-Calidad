@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <link rel="stylesheet" th:href="@{/css/addReclamacion.css}" href="css/addReclamacion.css" type="text/css" />
+    <title>Nueva reclamación</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+
+    <div class="contentBody">
+
+        <form role="form" id="addRCForm" onsubmit="event.preventDefault(); addReclamacion();">
+
+            <div class="contentPanel firstPanel">
+                <div class="d-flex align-items-center" id="titleDiv">
+                    <h1 id="addRcTitle">Nueva reclamación</h1>
+                    <!-- <a class="btn btn-primary" id="goToCreateButton" href="#createTAButton"><i class="bi bi-arrow-down"></i> Ir a crear</a> -->
+                </div>
+
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="numeroExpediente" class="inputLabel">Número de expediente*</label>
+                        <input class="form-control" id="numeroExpediente"  onkeyup="checkCreateRc()" required></input>
+                    </div>
+                    <div class="col">
+                        <label for="acronimo" class="inputLabel">Acrónimo*</label>
+                        <input class="form-control" id="acronimo"  maxlength="10" onkeyup="checkCreateRc()" required></input>
+                    </div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="fechaRecepcion" class="inputLabel">Fecha de recepción*</label>
+                        <input type="date" class="form-control" id="fechaRecepcion" onchange="checkCreateRc(); autoloadFechaMaximaRespuesta(event)" required></input>
+                    </div>
+                    <div class="col">
+                        <label for="fechaMaximaRespuesta" class="inputLabel">Fecha máxima de respuesta</label>
+                        <input type="date" class="form-control" id="fechaMaximaRespuesta"></input>
+                    </div>
+                </div>
+    
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="consultora" class="inputLabel">Consultora*</label>
+                        <input class="form-control" id="consultora" onchange="checkCreateRc()" required></input>
+                    </div>
+                    <div class="col">
+                        <label for="registroFormulario" class="inputLabel">Registro del formulario web*</label>
+                        <input type="file" class="form-control" id="registroFormulario" onchange="checkCreateRc()" required></input>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col col-md-1"><hr></div>
+                    <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Documentación extra</span></div>
+                    <div class="col"><hr></div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col col-md-6" id="colToAppendDocumentosExtra">
+                        <label for="" class="inputLabel transparentLabel">Documento</label>
+                        <button class="btn btn-primary" id="addDocumentoExtraHTML" onclick="addDocumentoExtraForm()" type="button">Añadir documento extra</button>
+                    </div>
+                </div>
+
+                <hr class="formRow mb-5 mt-4">
+
+                <div class="row formRow">
+                    
+                    <div class="col col-md-6">
+                        <label for="estadoSelect" class="inputLabel">Estado</label>
+                        <select class="form-select" id="estadoSelect">
+                            <option value="Abierta" selected>Abierta</option>
+                            <option value="Cerrada">Cerrada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col col-md-1"><hr></div>
+                    <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Documentos de respuesta</span></div>
+                    <div class="col"><hr></div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col col-md-6" id="colToAppendDocumentosRespuestaExtra">
+                        <label for="" class="inputLabel transparentLabel">Append</label>
+                        <button class="btn btn-primary" id="addDocumentoRespuestaExtraHTML" onclick="addDocumentoRespuestaExtraForm()" type="button">Añadir documento extra</button>
+                    </div>
+                </div>
+
+                <hr class="formRow mb-3 mt-4">
+
+                <!-- <div class="row justify-content-center formRow">
+                    <button type="submit" class="btn btn-primary" id="createRcButton" disabled>Crear reclamación</button>
+                </div> -->
+
+            </div>
+
+            <div class="contentPanel lastPanel">
+                <h3 class="comentariosTitle">Comentarios</h3>
+                <textarea id="comentarios" class="form-control customTextarea"></textarea>
+            </div>
+
+            <div class="floatButton" id="floatButtonDiv">
+                <button class="btn btn-primary" type="submit" id="createRcButton" disabled>Crear reclamación</button>
+            </div>
+
+        </form>
+        
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/addReclamacion.js}" src="js/addReclamacion.js"></script>
+</body>
+
+</html>

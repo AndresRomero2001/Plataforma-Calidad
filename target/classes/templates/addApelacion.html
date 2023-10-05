@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Nueva apelación</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+    <link rel="stylesheet" th:href="@{/css/addApelacion.css}" href="css/addApelacion.css" type="text/css" />
+
+    <div class="contentBody">
+
+        <form role="form" id="addTAForm" onsubmit="event.preventDefault(); createApelacion();">
+
+            <div class="contentPanel firstPanel">
+                <div class="d-flex align-items-center" id="titleDiv">
+                    <h1 id="addApTitle">Nueva apelación</h1>
+                    <!-- <a class="btn btn-primary" id="goToCreateButton" href="#createTAButton"><i class="bi bi-arrow-down"></i> Ir a crear</a> -->
+                </div>
+
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="numeroExpediente" class="inputLabel">Número de expediente*</label>
+                        <input class="form-control" id="numeroExpediente"  onkeyup="checkCreateAp()" required></input>
+                    </div>
+                    <div class="col">
+                        <label for="acronimo" class="inputLabel">Acrónimo*</label>
+                        <input class="form-control" id="acronimo"  maxlength="10" onkeyup="checkCreateAp()" required></input>
+                    </div>
+                </div>
+    
+                <div class="row formRow">
+                    <div class="col">
+                        <label for="fechaCertificacion" class="inputLabel">Fecha de certificación*</label>
+                        <input type="date" class="form-control" id="fechaCertificacion" onchange="checkCreateAp()" required></input>
+                    </div>
+                    <div class="col">
+                        <label for="cliente" class="inputLabel">Cliente*</label>
+                        <input class="form-control" id="cliente" onkeyup="checkCreateAp()" required></input>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col col-md-1"><hr></div>
+                    <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Registro de recepción</span></div>
+                    <div class="col"><hr></div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="fechaRegistroRecepcion" class="inputLabel">Fecha del registro de recepción*</label>
+                        <input type="date" class="form-control" id="fechaRegistroRecepcion" onchange="checkCreateAp()" required></input>
+                    </div>
+                    <div class="col col-md-6" id="colToAppendDocumentoRegistroRecepcion">
+                        <label for="addDocumentoRegistroRecepcionFormButton" class="inputLabel transparentLabel">Documento</label>
+                        <button type="button" class="btn btn-primary" id="addDocumentoRegistroRecepcionFormButton" onclick="addDocumentoRegistroRecepcion()">Añadir documento</button>
+                    </div>
+                </div>
+
+                <hr class="formRow mb-5 mt-4">
+
+                <div class="row mt-5">
+                    <div class="col col-md-1"><hr></div>
+                    <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Acuse de recibo</span></div>
+                    <div class="col"><hr></div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="fechaAcuseRecibo" class="inputLabel">Fecha del acuse de recibo</label>
+                        <input type="date" class="form-control" id="fechaAcuseRecibo"></input>
+                    </div>
+                    <div class="col col-md-6" id="colToAppendDocumentoAcuseRecibo">
+                        <label for="addDocumentoAcuseReciboFormButton" class="inputLabel transparentLabel">Documento</label>
+                        <button type="button" class="btn btn-primary" id="addDocumentoAcuseReciboFormButton" onclick="addDocumentoAcuseRecibo()">Añadir documento</button>
+                    </div>
+                </div>
+
+                <hr class="formRow mb-5 mt-4">
+
+                <div class="row mt-5">
+                    <div class="col col-md-1"><hr></div>
+                    <div class="col col-md-3 d-flex justify-content-center"><span class="hrTitle">Informe de respuesta</span></div>
+                    <div class="col"><hr></div>
+                </div>
+
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="fechaInformeRespuesta" class="inputLabel">Fecha del informe de respuesta</label>
+                        <input type="date" class="form-control" id="fechaInformeRespuesta"></input>
+                    </div>
+                    <div class="col col-md-6" id="colToAppendDocumentoInformeRespuesta">
+                        <label for="addDocumentoInformeRespuestaFormButton" class="inputLabel transparentLabel">Documento</label>
+                        <button type="button" class="btn btn-primary" id="addDocumentoInformeRespuestaFormButton" onclick="addDocumentoInformeRespuesta()">Añadir documento</button>
+                    </div>
+                </div>
+
+                <hr class="formRow mb-5 mt-4">
+
+                <div class="row formRow">
+                    <div class="col col-md-6">
+                        <label for="plazoLimite" class="inputLabel">Plazo límite</label>
+                        <input type="date" class="form-control" id="plazoLimite"></input>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contentPanel">
+                <h3 id="revisionProcesoTitle">Revisión del proceso</h3>
+                <div class="accordion" id="revisionProcesoAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#revisionDocumentalAccordion" aria-expanded="false" aria-controls="revisionDocumentalAccordion">
+                                <div class="row">
+                                    <div class="col">
+                                        Revisión documental
+                                    </div>
+                                </div> 
+                            </button>
+                        </h2>
+                        <div id="revisionDocumentalAccordion" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Memoria técnica (versión)</p>
+                                    <p>- Informe de Revisión Inicial</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="revisionDocumentalSwitch" id="revisionDocumentalSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="revisionDocumentalSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="revisionDocumentalSwitch" id="revisionDocumentalSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasRevisionDocumental"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#solicitudRequerimientosAccordion" aria-expanded="false" aria-controls="solicitudRequerimientosAccordion">
+                                Solicitud de requerimientos
+                            </button>
+                        </h2>
+                        <div id="solicitudRequerimientosAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Se comprueba que todas las solicitudes de requerimiento estan registradas y cerradas</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="solicitudRequerimientosSwitch" id="solicitudRequerimientosSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="solicitudRequerimientosSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="solicitudRequerimientosSwitch" id="solicitudRequerimientosSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                        <textarea class="form-control" id="incidenciasSolicitudRequerimientos"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#imparcialidadExpertosAccordion" aria-expanded="false" aria-controls="collapseTwo">
+                                Imparcialidad de expertos
+                            </button>
+                        </h2>
+                        <div id="imparcialidadExpertosAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Se hace revisión de la imparcialidad de los expertos involucrados comprobando que no se encuentra ninguna relación que pueda suponer un conflicto de interés para la evaluación</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="imparcialidadExpertosSwitch" id="imparcialidadExpertosSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="imparcialidadExpertosSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="imparcialidadExpertosSwitch" id="imparcialidadExpertosSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasImparcialidadExpertos"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#revisionInforme4dAccordion" aria-expanded="false" aria-controls="collapseTwo">
+                                Revisión del informe 4D
+                            </button>
+                        </h2>
+                        <div id="revisionInforme4dAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Código UNESCO adecuado</p>
+                                    <p>- Competencia experto 4D</p>
+                                    <p>- Conocimientos que engloben la novedad</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="revisionInforme4dSwitch" id="revisionInforme4dSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="revisionInforme4dSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="revisionInforme4dSwitch" id="revisionInforme4dSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasRevisionInforme4d"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#verificacionCompetenciasAccordion" aria-expanded="false" aria-controls="collapseTwo">
+                                Verificación de competencias
+                            </button>
+                        </h2>
+                        <div id="verificacionCompetenciasAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Comprobar competencia del ET en los conocimientos indicados por el 4D</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="verificacionCompetenciasSwitch" id="verificacionCompetenciasSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="verificacionCompetenciasSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="verificacionCompetenciasSwitch" id="verificacionCompetenciasSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasVerificacionCompetencias"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#revisionInformeTecnicoAccordion" aria-expanded="false" aria-controls="collapseTwo">
+                                Revisión del informe técnico
+                            </button>
+                        </h2>
+                        <div id="revisionInformeTecnicoAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Descripción de obetivos adecuada</p>
+                                    <p>- Estudio del estado del arte completo</p>
+                                    <p>- Novedades identificadas y justificadas en el estudio del estado del arte</p>
+                                    <p>- El estado de ejecución de las actividades se encuentra correctamente argumentado basándose en las evidencias presentadas por la memoria</p>
+                                    <p>- Valoración del presupuesto y la coherencia/incoherencia del gasto adecuado</p>
+                                    <p>- Justificación de las partidas de gasto adecuada</p>
+                                    <p>- Justificación detallada de la calificación global</p>
+                                    <p>- Las justificaciones de los conocimientos por parte del experto técnico son correctas</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="revisionInformeTecnicoSwitch" id="revisionInformeTecnicoSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="revisionInformeTecnicoSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="revisionInformeTecnicoSwitch" id="revisionInformeTecnicoSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasRevisionInformeTecnico"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#revisionEvaluacionContableAccordion" aria-expanded="false" aria-controls="collapseTwo">
+                                Revisión de la evaluación contable
+                            </button>
+                        </h2>
+                        <div id="revisionEvaluacionContableAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Coherencia entre el Informe Técnico y el Informe Contable</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="revisionEvaluacionContableSwitch" id="revisionEvaluacionContableSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="revisionEvaluacionContableSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="revisionEvaluacionContableSwitch" id="revisionEvaluacionContableSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasRevisionEvaluacionContable"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#documentoCertificacionAccordion" aria-expanded="false" aria-controls="collapseTwo">
+                                Documento de certificación
+                            </button>
+                        </h2>
+                        <div id="documentoCertificacionAccordion" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#revisionProcesoAccordion">
+                            <div class="row accordion-body">
+                                <div class="col">
+                                    <p>- Se comprueba que los docs de certificación (certificado e informe asociado) son correctos</p>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                        <label class="form-check-label customSwitchLeftLabel" for="documentoCertificacionSwitch" id="documentoCertificacionSwitchLabel">OK</label>
+                                        <input class="form-check-input customSwitch" type="checkbox" role="switch" id="documentoCertificacionSwitch" onchange="manageSwitch(event)">
+                                        <label class="form-check-label customSwitchRightLabel" for="documentoCertificacionSwitch" id="documentoCertificacionSwitchLabel">KO</label>
+                                    </div>
+                                    <div class="row incidenciasRowDiv" id="incidenciasRow">
+                                        <div class="col">
+                                            <label for="incidencias" class="inputLabel">Identificación de incidencias</label>
+                                            <textarea class="form-control" id="incidenciasDocumentoCertificacion"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="contentPanel" id="resolucionPanel">
+                <h3 id="ncAsociadaTitle">Resolución</h3>
+                <div class="row">
+                    <div class="col col-md-6">
+                        <label for="resolucionSelect" class="inputLabel">Resolución</label>
+                        <select class="form-select" id="resolucionSelect">
+                            <option selected value="">Seleccionar...</option>
+                            <option value="Estimada">Estimada</option>
+                            <option value="Desestimada">Desestimada</option>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="contentPanel">
+                <h3 id="ncAsociadaTitle">No conformidad asociada</h3>
+                <div class="row" id="ncRow"></div> <!-- para insertar nc html desde JS -->
+                <button type="button" id="addNCformButton" class="btn btn-primary" onclick="addNCForm()">Añadir No conformidad</button>
+            </div>
+
+            <div class="contentPanel lastPanel">
+                <h3 id="comentariosTitle">Comentarios</h3>
+                <textarea id="comentarios" class="form-control"></textarea>
+            </div>
+
+            <div class="floatButton" id="floatButtonDiv">
+                <button class="btn btn-primary" type="submit" id="createApButton" disabled>Crear apelación</button>
+            </div>
+
+        </form>
+        
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/addApelacion.js}" src="js/addApelacion.js"></script>
+</body>
+
+</html>

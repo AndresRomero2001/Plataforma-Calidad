@@ -1,0 +1,55 @@
+
+
+.loginBody{
+    width: 65%;
+    margin: auto;
+}
+
+#loginPanel{
+    width:40vw;
+}
+
+#loginLogoDiv{
+    /* margin: auto; */
+}
+
+#loginLogo{
+    width: 20vw;
+    margin: auto !important;
+}
+
+.loginInputGroup{
+    margin-bottom: 1vw ;
+}
+
+#loginButton{
+    margin-top: 2vw;
+    width: 8vw;
+}
+
+#loginUsername{
+    width: 75% !important;
+    margin: auto;
+}
+
+#loginPassword{
+    width: 75% !important;
+    margin: auto;
+}
+
+#loginHeader{
+    margin-bottom: 2vw;
+}
+
+.loginError{
+    background-color: rgba(192, 0, 0, 0.8); /* es el main-red: #c00000 */
+    width: 75%;
+    margin: auto;
+    text-align: left;
+    padding: 0.3em;
+    padding-left: 0.5em;
+    line-height: 1.75em;
+    border-radius: 0.3em;
+    margin-bottom: 0.5vw;
+    color: white;
+}

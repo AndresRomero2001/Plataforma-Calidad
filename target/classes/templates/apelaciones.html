@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>AP</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/sidebar.html :: sidebar"></header>
+    <link rel="stylesheet" th:href="@{/css/apelaciones.css}" href="css/apelaciones.css" type="text/css" />
+
+    <div class="contentBody">
+
+        <div class="contentPanel uniquePanel">
+            <div class="d-flex align-items-center" id="apTitleDiv">
+                <h1 id="apTitle">Apelaciones</h1>
+                <a type="button" class="btn btn-primary" id="addApelacionButton" th:href="@{/ap/addApelacion}">
+                    <i class="bi bi-plus-lg"></i>
+                    Añadir nueva
+                </a>
+            </div>
+
+            <div class="accordion" id="searcherAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="searcherHeading">
+                    <button class="accordion-button collapsed" id="searcherAccordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Buscador
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="searcherHeading" data-bs-parent="#searcherAccordion">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col">
+                                <label for="searchByID" class="inputLabel">ID</label>
+                                <input type="number" class="form-control" min="1" id="searchByID">
+                            </div>
+                            <div class="col">
+                                <label for="searchByNumeroExpediente" class="inputLabel">Número de expediente</label>
+                                <input type="text" class="form-control" id="searchByNumeroExpediente">
+                            </div>
+                            <div class="col">
+                                <label for="searchByAcronimo" class="inputLabel">Acrónimo</label>
+                                <input type="text" class="form-control" id="searchByAcronimo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="searchByResolucionSelect" class="inputLabel">Resolución</label>
+                                <select class="form-select" id="searchByResolucionSelect">
+                                    <option value="" selected>Seleccionar...</option>
+                                    <option value="Estimada">Estimada</option>
+                                    <option value="Desestimada">Desestimada</option>
+                                    <option value="SinResolucion">Sin resolución </option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="searchByFechaRecepcion" class="inputLabel">Fecha recepción</label>
+                                <input type="date" class="form-control" id="searchByFechaRecepcion">
+                            </div>
+                            <div class="col">
+                                <label for="searchButton" class="inputLabel invisibleLabel">Buscar</label>
+                                <button type="button" class="btn btn-primary" id="searchButton" onclick="search()">Buscar</button>
+                                <button type="button" class="btn btn-secondary" id="clearInputs" onclick="clearInputs()">Limpiar campos</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row" id="headerRow">
+                <div class="col col-md-1 d-flex align-items-center justify-content-center" id="estadoCol">
+                    <div id="sortByIdDiv" class="d-flex align-items-center d-flex justify-content-center" onclick="sortCurrentList(event)">
+                        <h5 class="headerTitle">ID</h5>
+                        <button type="button" id="sortByIdButton" ><i class="bi bi-arrow-down-up"></i></button>
+                        <!-- <button type="button" id="sortByIdButton" ><i class="bi bi-arrow-down-up"></i></button> -->
+                    </div>
+                </div>
+                <div class="col col-md-2 d-flex align-items-center justify-content-center">
+                    <h5 class="headerTitle">No. Exped.</h5>
+                </div>
+                <div class="col col-md-2 d-flex align-items-center justify-content-center">
+                    <h5 class="headerTitle">Acrónimo</h5>
+                </div>
+                <div class="col col-md-2 d-flex align-items-center justify-content-center">
+                    <h5 class="headerTitle">Resolución</h5>
+                </div>
+                <div class="col col-md-3 d-flex align-items-center justify-content-center">
+                    <div id="sortByFechaRecepcionDiv" class="d-flex align-items-center justify-content-center" onclick="sortCurrentList(event)">
+                        <h5 class="headerTitle">Fecha recepción</h5>
+                        <button type="button" id="sortByDateButton"><i class="bi bi-arrow-down-up"></i></button>
+                        <!-- <button type="button" id="sortByEjercicioFiscalButton" ><i class="bi bi-arrow-down-up"></i></button> -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="divToAppendBlocks"></div>
+
+            <div class="apBlock">
+                <th:block th:each="ap,iter: ${apelaciones}">
+                    <div class="row apRow apDiv" th:id="${ap.id}">
+                        <div class="col col-md-1 d-flex align-items-center justify-content-center">
+                            <div class="d-flex align-items-center d-flex justify-content-center">
+                                <h6 class="headerTitle" th:text="${ap.id}">ID</h6>
+                            </div>
+                        </div>
+                        <div class="col col-md-2 d-flex align-items-center justify-content-center">
+                            <h6 class="headerTitle" th:text="${ap.numeroExpediente}">Número de expediente</h6>
+                        </div>
+                        <div class="col col-md-2 d-flex align-items-center justify-content-center">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <h6 class="headerTitle" th:text="${ap.acronimo}">Acrónimo</h6>
+                            </div>
+                        </div>
+                        <div class="col col-md-2 d-flex align-items-center">
+                            <i th:if="${ap.resolucion == 'Estimada'}" class="bi bi-circle-fill abiertasCircle"></i>
+                            <i th:if="${ap.resolucion == 'Desestimada'}" class="bi bi-circle-fill urgentesCircle"></i>
+                            <h6 class="headerTitle" th:text="${ap.resolucion}">Resolución</h6>
+                        </div>
+                        <div class="col col-md-3 d-flex align-items-center justify-content-center">
+                            <h6 class="headerTitle" th:if="${ap.fechaRegistroRecepcion != null}" th:text="${#temporals.format(ap.fechaRegistroRecepcion, 'dd-MM-yyyy')}">Formatted Date</h6>
+                        </div>
+                        <div class="col col-md-2 d-flex align-items-center justify-content-center">
+                            <a class="btn btn-primary apDivButton" th:href="@{/ap/manageApelacion?apId={id} (id=${ap.id})}"><i class="bi bi-pencil-fill"></i></a>
+                            <button class="btn btn-danger apDivButton" data-bs-toggle="modal" data-bs-target="#eliminarModal" th:value="${ap.id}" onclick="updateIdToDelete(event)"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+
+            <h3 id="noCoincidencesMsg">No se han encontrado coincidencias</h3>
+
+        </div>
+
+        <!-- MODAL ELIMINAR -->
+        <div class="modal fade" id="eliminarModal" bindex="-1" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" id="eliminarModalDialog">
+            <div class="modal-content" id="eliminarModalContent">
+                
+                <div class="modal-body" id="eliminarModalBody">
+                    
+                    <div class="d-flex align-items-center customModalContent">
+                        <div class="row align-items-center">
+                            <div class="col col-md-4 offset-1 d-flex align-items-center">
+                                <i class="bi bi-exclamation-circle" id="alertIcon"></i>
+                            </div>
+                            <div class="col  col-md-6 d-flex align-items-center">
+                                <p id="confirmationMsg">¿Seguro que deseas eliminar la Apelación?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-11 d-flex justify-content-end">
+                            <button type="button" id="closeModaleliminar" class="btn btn-secondary deleteModalButton" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="eliminarButton" class="btn btn-danger deleteModalButton" onclick="deleteApelacion()">Eliminar</button>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/apelaciones.js}" src="js/apelaciones.js"></script>
+</body>
+
+</html>

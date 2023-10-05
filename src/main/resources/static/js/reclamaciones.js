@@ -54,7 +54,7 @@ function search(){
 
     go(config.rootUrl + "/rc/searchReclamacion", 'POST', params)
     .then(results => {console.log("todo ok")
-        history.pushState({}, "", "https://plataformacalidad.duckdns.org/rc/reclamaciones");
+        history.pushState({}, "", "https://plataformacalidad.es/rc/reclamaciones");
         hideAll();
 
         let html = `
